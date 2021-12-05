@@ -149,13 +149,14 @@ if [ $STEP -gt -1 ]; then
     # learn bpe model with training data
     if [ ! -d $BPE_MODEL ]; then  
         mkdir -p $BPE_MODEL
-    fi
+    
 
     echo "=> LEARNING BPE MODEL: $BPE_MODEL"
     subword-nmt learn-joint-bpe-and-vocab --input ${PROCESSED_DATA}/train.src ${PROCESSED_DATA}/train.tgt \
                     -s $BPESIZE -o $BPE_MODEL/code.${BPESIZE}.bpe \
                     --write-vocabulary $BPE_MODEL/train.src.vocab $BPE_MODEL/train.tgt.vocab 
 
+    fi
 fi
 
 # apply sub-word segmentation
