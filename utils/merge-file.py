@@ -50,5 +50,5 @@ if __name__=="__main__":
 
     args = parser.parse_args() 
 
-    merge_file(args.source_1, args.source_2, args.source_3, args.stride, args.merge_source,args.type)
-    merge_file(args.target_1, args.target_2, args.target_3, args.stride, args.merge_target,args.type)
+    merge_file(args.source_1, args.source_2, args.source_3, int(args.stride), args.merge_source,args.type)
+    merge_file(args.target_1, args.target_2, args.target_3, int(args.stride), args.merge_target,args.type)
