@@ -10,7 +10,7 @@ sh setup-environment.sh
 
 Here, we use IWSLT (2015)) English-Vietnamese dataset.
 
-To download the dataset, run the command below
+To download the dataset, run the below command 
 
 ```
 sh scripts/download-data.sh
