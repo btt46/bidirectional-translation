@@ -19,6 +19,8 @@ BLEU=$PWD/multi-bleu.perl
 
 RESULTS=$EXPDIR/results
 
+MODELS=$EXPDIR/models
+
 if [ ! -d $RESULTS ]; then
     mkdir -p $RESULTS
 fi
@@ -45,7 +47,7 @@ echo >  $MODEL_RESULT/result
 
 for i in 21 22 23 24 25 26 27 28 29 30
 do
-	echo "${MODEL_NAME}/checkpoint${i}.pt" >> $MODEL_RESULT/result
+	echo "${MODELS}/${MODEL_NAME}/checkpoint${i}.pt" >> $MODEL_RESULT/result
 	# The model used for evaluate
 	MODEL=$EXPDIR/models/${MODEL_NAME}/checkpoint${i}.pt
 	CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
