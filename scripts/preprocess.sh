@@ -75,7 +75,6 @@ rm -rf $PROCESSED_DATA
 rm -rf $NORMALIZED_DATA
 rm -rf $TOKENIZED_DATA
 rm -rf $TRUECASED_DATA
-rm -rf $BPE_MODEL
 rm -rf $BPE_DATA
 rm -rf $BIN_DATA
 
