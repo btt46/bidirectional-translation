@@ -40,7 +40,15 @@ echo "$IBT"
 
 if [ $IBT != "N" ]; then
     read -p "Which steps do you train: " STEP
-    IBT_DATASET=$EXPDIR/dataset/ibt_step_${STEP}
+
+    if [ $STEP -eq 0 ]; then
+        IBT_DATASET=$EXPDIR/dataset/ibt_step_${STEP}
+    fi
+
+    if [ $STEP -gt 0 ]; then
+        read -p "Beam or Random: " TRANSLATION_TYPE
+        IBT_DATASET=$EXPDIR/dataset/ibt_step_${STEP}_${TRANSLATION_TYPE}
+    fi
 
     rm -rf $IBT_DATASET
     mkdir -p $IBT_DATASET
@@ -191,6 +199,18 @@ echo "=> Binarize"
 if [ ! -d $BIN_DATA ]; then
     mkdir $BIN_DATA
 fi
+
+PREPROCESS_LOG=$LOGS/preprocess/log.preprocess
+
+if [ $STEP -eq 0 ]; then
+    PREPROCESS_LOG=$LOGS/preprocess/log.preprocess.IBT.${STEP}
+fi
+
+if [ $STEP -gt 0 ]; then
+    PREPROCESS_LOG=$LOGS/preprocess/log.preprocess.IBT.${TRANSLATION_TYPE}.${STEP}
+fi
+
+
 fairseq-preprocess -s src -t tgt \
 			--destdir $BIN_DATA \
 			--trainpref $BPE_DATA/train \
@@ -198,4 +218,4 @@ fairseq-preprocess -s src -t tgt \
 			--testpref $BPE_DATA/test \
 			--joined-dictionary \
 			--workers 32 \
-            2>&1 | tee $LOGS/preprocess/log.preprocess.IBT.${STEP}
+            2>&1 | tee $PREPROCESS_LOG
