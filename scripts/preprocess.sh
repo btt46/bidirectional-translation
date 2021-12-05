@@ -37,7 +37,6 @@ echo "$IBT"
 if [ $IBT != "N" ]; then
     read -p "Which steps do you train: " STEP
     IBT_DATASET=$EXPDIR/dataset/ibt_step_${STEP}
-    mkdir -p $IBT_DATASET
 
     DATA=$IBT_DATASET/data
     PROCESSED_DATA=$IBT_DATASET/processed
