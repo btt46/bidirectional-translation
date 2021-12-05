@@ -104,7 +104,7 @@ done
 # Tokenization
 echo "=> tokenize..."
 for SET in $DATA_NAME ; do
-    $TOK -l en < ${NORMALIZED_DATA}/${SET}.en > ${TOKENIZED_DATA}/${SET}.en
+    env LC_ALL=en_US.UTF-8 $TOK -l en < ${NORMALIZED_DATA}/${SET}.en > ${TOKENIZED_DATA}/${SET}.en
     python3.6 ${UTILS}/tokenize-vi.py  ${NORMALIZED_DATA}/${SET}.vi ${TOKENIZED_DATA}/${SET}.vi
 done
 
@@ -112,16 +112,16 @@ done
 echo "=> Truecasing..."
 
 echo "Traning for english..."
-$TRUECASER_TRAIN --model truecase-model.en --corpus ${TOKENIZED_DATA}/train.en
+env LC_ALL=en_US.UTF-8 $TRUECASER_TRAIN --model truecase-model.en --corpus ${TOKENIZED_DATA}/train.en
 
 echo "Traning for vietnamese..."
-$TRUECASER_TRAIN --model truecase-model.vi --corpus ${TOKENIZED_DATA}/train.vi
+env LC_ALL=en_US.UTF-8 $TRUECASER_TRAIN --model truecase-model.vi --corpus ${TOKENIZED_DATA}/train.vi
 
 for lang in en vi; do
     echo "[$lang]..."
     for set in $DATA_NAME; do
         echo "${set}..."
-        $TRUECASER --model truecase-model.${lang} < ${TOKENIZED_DATA}/${set}.${lang} > ${TRUECASED_DATA}/${set}.${lang}
+        env LC_ALL=en_US.UTF-8 $TRUECASER --model truecase-model.${lang} < ${TOKENIZED_DATA}/${set}.${lang} > ${TRUECASED_DATA}/${set}.${lang}
     done
 done
 

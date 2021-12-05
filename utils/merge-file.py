@@ -26,7 +26,8 @@ def merge_file(file_1, file_2, file_3,stride,out_file,type):
             for i in range(len(file_content_1)):
                 fp.write(file_content_1[i])
                 fp.write(file_content_2[i])
-                fp.write(file_content_3[i:i+stride])
+                for j in range(stride):
+                    fp.write(file_content_3[i+stride])
         if type == "all":
             fp.write(file_content_1)
             fp.write(file_content_2)
