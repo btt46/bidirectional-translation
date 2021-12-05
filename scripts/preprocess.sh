@@ -32,6 +32,7 @@ BPE_MODEL=$DATASET/bpe-model
 STEP=-1
 IBT="N"
 read -p "Do you use iterative back translation (Y/N): " $IBT
+echo "$IBT"
 
 if [ $IBT != "N" ]; then
     read -p "Which steps do you train: " $STEP
