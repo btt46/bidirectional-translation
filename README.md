@@ -1,4 +1,4 @@
-# bidirectional-translation
+# Bidirectional Neural Machine Translation
 
 ### Setup an environment
 
