@@ -8,11 +8,16 @@ read -p "IBT STEP: " STEP
 
 LOG=$EXPDIR/logs/models
 MODELS=$EXPDIR/models
-IBT_DATASET=$EXPDIR/dataset/ibt_step_${STEP}/bin-data
 
 if [ ! -d $LOG ]; then
     mkdir -p $LOG
 fi
+
+if [ ! -d $MODELS ]; then
+    mkdir -p $MODELS
+fi
+
+IBT_DATASET=$EXPDIR/dataset/ibt_step_${STEP}/bin-data
 
 if [ ${STEP} -eq 0 ]; then
     echo "=>> Training a bidirectional model..."
