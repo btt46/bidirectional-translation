@@ -17,4 +17,21 @@ TRUECASER=$MOSES/recaser/truecase.perl
 FARISEQ=$PWD/fairseq
 
 # Data
-DATA
+DATASET=$EXPDIR/dataset
+RAW_DATA=$DATASET/iwslt15
+DATA=$DATASET/data
+PROCESSED_DATA=$DATASET/processed-data
+NORMALIZED_DATA=$DATASET/normalized
+TOKENIZED_DATA=$DATASET/tok
+TRUECASED_DATA=$DATASET/truecased
+BPE_DATA=$DATASET/bpe-data
+BIN_DATA=$DATASET/bin-data
+
+DATA_NAME="train valid test"
+
+# scripts
+SCRIPTS=$EXPDIR/scripts
+
+TEXT_UTILS=$EXPDIR/utils
+
+
