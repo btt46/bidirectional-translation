@@ -7,7 +7,7 @@ read -p "EPOCHS NUM: " EPOCHS
 read -p "IBT STEP: " STEP
 
 LOG=$EXPDIR/logs/models
-IBT_DATASET=DATASET=$EXPDIR/dataset/ibt_step_${STEP}
+IBT_DATASET=DATASET=$EXPDIR/dataset/ibt_step_${STEP}/bin-data
 
 if [ ! -d $LOG ]; then
     mkdir -p $LOG
