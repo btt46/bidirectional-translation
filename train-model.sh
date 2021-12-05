@@ -7,6 +7,7 @@ read -p "EPOCHS NUM: " EPOCHS
 read -p "IBT STEP: " STEP
 
 LOG=$EXPDIR/logs/models
+MODELS=$EXPDIR/models
 IBT_DATASET=$EXPDIR/dataset/ibt_step_${STEP}/bin-data
 
 if [ ! -d $LOG ]; then
@@ -38,6 +39,6 @@ if [ ${STEP} -eq 0 ]; then
 					--attention-dropout 0.1 \
 					--share-decoder-input-output-embed \
 					--share-all-embeddings \
-					--save-dir $MODEL_NAME \
+					--save-dir $MODELS/$MODEL_NAME \
 					2>&1 | tee $LOG/${MODEL_NAME}
 fi
