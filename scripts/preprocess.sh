@@ -195,4 +195,4 @@ fairseq-preprocess -s src -t tgt \
 			--testpref $BPE_DATA/test \
 			--joined-dictionary \
 			--workers 32 \
-            2>&1 | tee $LOGS/preprocess/log.preprocess.${IBT}.${STEP}
+            2>&1 | tee $LOGS/preprocess/log.preprocess.IBT.${STEP}
