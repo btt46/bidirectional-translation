@@ -3,7 +3,7 @@
 set -e
 
 EXPDIR=$PWD 
-DATA=$EXPDIR/data 
+DATA=$EXPDIR/dataset 
 mkdir -p $DATA/iwslt15
 
 echo "Downloading..."
