@@ -42,6 +42,9 @@ if [ $IBT != "N" ]; then
     read -p "Which steps do you train: " STEP
     IBT_DATASET=$EXPDIR/dataset/ibt_step_${STEP}
 
+    rm -rf $IBT_DATASET
+    mkdir -p $IBT_DATASET
+
     DATA=$IBT_DATASET/data
     PROCESSED_DATA=$IBT_DATASET/processed
     NORMALIZED_DATA=$IBT_DATASET/normalized
@@ -140,8 +143,8 @@ if [ $STEP -gt -1 ]; then
                                         -s2 ${TRUECASED_DATA}/${SET}.vi\
                                         -s3 ${PROCESSED_DATA}/${SET}.src\
                                         -msrc ${PROCESSED_DATA}/${SET}.src \
-                                        -t1 ${TRUECASED_DATA}/${SET}.en\
-                                        -t2 ${TRUECASED_DATA}/${SET}.vi\
+                                        -t1 ${TRUECASED_DATA}/${SET}.vi\
+                                        -t2 ${TRUECASED_DATA}/${SET}.en\
                                         -t3 ${PROCESSED_DATA}/${SET}.tgt\
                                         -mtgt ${PROCESSED_DATA}/${SET}.tgt \
                                         -t "sentence" -stride 0
