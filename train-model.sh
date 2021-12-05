@@ -38,6 +38,6 @@ if [ ${STEP} -eq 0 ]; then
 					--attention-dropout 0.1 \
 					--share-decoder-input-output-embed \
 					--share-all-embeddings \
-					--save-dir $MODEL \
+					--save-dir $MODEL_NAME \
 					2>&1 | tee $LOG/${MODEL_NAME}
 fi
