@@ -20,6 +20,10 @@ if [ ! -d $LOGS ]; then
     mkdir -p $LOGS
 fi
 
+if [ ! -d $LOGS/preprocess ]; then
+    mkdir -p $LOGS/preprocess
+fi
+
 
 
 # Data
