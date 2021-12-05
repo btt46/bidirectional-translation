@@ -1,10 +1,10 @@
 #!/bin/bash
 EXPDIR=$PWD 
 
-read -p "GPUS: " $GPUS
-read -p "MODEL NAME: " $MODEL_NAME
-read -p "EPOCHS NUM: " $EPOCHS
-read -p "IBT STEP: " $STEP
+read -p "GPUS: " GPUS
+read -p "MODEL NAME: " MODEL_NAME
+read -p "EPOCHS NUM: " EPOCHS
+read -p "IBT STEP: " STEP
 
 LOG=$EXPDIR/logs/models
 IBT_DATASET=DATASET=$EXPDIR/dataset/ibt_step_${STEP}
