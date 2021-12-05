@@ -33,7 +33,7 @@ STEP=-1
 IBT="N"
 read -p "Do you use iterative back translation (Y/N): " $IBT
 
-if [ ${IBT} == "Y" ] || [ ${IBT} == "y" ] || [ ${IBT} == "yes" ] || [ ${IBT} == "Yes" ]; then
+if [[ ${IBT} == "Y" ]] || [[ ${IBT} == "y" ]] || [[ ${IBT} == "yes" ]] || [[ ${IBT} == "Yes" ]]; then
     read -p "Which steps do you train: " $STEP
     IBT_DATASET=DATASET=$EXPDIR/dataset/ibt_step_${STEP}
     DATA=$IBT_DATASET/data
