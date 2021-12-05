@@ -96,7 +96,7 @@ for lang in en vi; do
     echo "[$lang]..."
     for set in $DATA_NAME; do
         echo "$set..."
-        python3 ${UTILS}/normalize.py ${DATA}/${set}.${lang}  ${NORMALIZED_DATA}/${set}.${lang}
+        python3.6 ${UTILS}/normalize.py ${DATA}/${set}.${lang}  ${NORMALIZED_DATA}/${set}.${lang}
     done
 done
 
@@ -104,7 +104,7 @@ done
 echo "=> tokenize..."
 for SET in $DATA_NAME ; do
     $TOK -l en < ${NORMALIZED_DATA}/${SET}.en > ${TOKENIZED_DATA}/${SET}.en
-    python3 ${UTILS}/tokenize-vi.py  ${NORMALIZED_DATA}/${SET}.vi ${TOKENIZED_DATA}/${SET}.vi
+    python3.6 ${UTILS}/tokenize-vi.py  ${NORMALIZED_DATA}/${SET}.vi ${TOKENIZED_DATA}/${SET}.vi
 done
 
 # Truecaser
