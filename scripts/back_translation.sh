@@ -42,7 +42,7 @@ fi
 
 if [ $TRANSLATION_TYPE == "beam" ]; then
     echo "=> beam-search translation (start)"
-    CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
+    CUDA_VISIBLE_DEVICES=$GPUS  python3 $EXPDIR/fairseq/fairseq_cli/interactive.py $BIN_DATA \
                         --input ${TRANSLATION_DATA}/tagged-translation.${SRC} \
                         --beam 5 \
                         --path $MODEL  | tee $SYN_DATA/iteractive_translation.{TGT}
@@ -51,7 +51,7 @@ fi
 
 if [ $TRANSLATION_TYPE == "random" ]; then
     echo "random-sampling translation (start)"			
-    CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
+    CUDA_VISIBLE_DEVICES=$GPUS  python3 $EXPDIR/fairseq/fairseq_cli/interactive.py $BIN_DATA \
                 --input ${TRANSLATION_DATA}/tagged-translation.${SRC} \
                 --sampling \
                 --seed ${SEED} \
