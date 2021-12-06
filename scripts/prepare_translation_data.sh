@@ -10,7 +10,7 @@ BPE_MODEL=$DATASET/bpe-model
 TAG=""
 
 if [ ! -d $TRANSLATION_DATA ]; then
-    mkdir -p $IBT_DATASET
+    mkdir -p $TRANSLATION_DATA
 
     echo "=> Preparing...."
     DATA_NAME="train valid test"
