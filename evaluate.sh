@@ -6,6 +6,10 @@ read -p "GPUS: " GPUS
 read -p "MODEL NAME: " MODEL_NAME
 read -p "IBT STEP: " STEP
 
+if [ $STEP -ge 1 ]: then
+    read -p "beam or random: " TRANSLATION_TYPE
+fi
+
 MOSES=$EXPDIR/mosesdecoder/scripts
 DETRUECASER=$MOSES/recaser/detruecase.perl
 
@@ -26,7 +30,14 @@ if [ ! -d $RESULTS ]; then
     mkdir -p $RESULTS
 fi
 
-MODEL_RESULT=$RESULTS/result_step_${STEP}
+if [ $STEP -eq 0 ]: then
+	MODEL_RESULT=$RESULTS/result_step_${STEP}
+fi
+
+if [ $STEP -ge 1 ]: then
+    MODEL_RESULT=$RESULTS/result_step_${STEP}_${TRANSLATION_TYPE}
+fi
+
 if [ ! -d $MODEL_RESULT ]; then
     mkdir -p $MODEL_RESULT
 fi
