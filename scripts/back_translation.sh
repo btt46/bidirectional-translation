@@ -41,14 +41,16 @@ if [ ! -d $SYN_DATA ]; then
 fi
 
 if [ $TRANSLATION_TYPE == "beam" ]; then
+    echo "=> beam-search translation (start)"
     CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
                         --input ${TRANSLATION_DATA}/tagged-translation.${SRC} \
                         --beam 5 \
                         --path $MODEL  | tee $SYN_DATA/iteractive_translation.{TGT}
+    echo "=> beam-search translation (completed)"
 fi
 
 if [ $TRANSLATION_TYPE == "random" ]; then
-    echo "random"			
+    echo "random-sampling translation (start)"			
     CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
                 --input ${TRANSLATION_DATA}/tagged-translation.${SRC} \
                 --sampling \
@@ -58,6 +60,7 @@ if [ $TRANSLATION_TYPE == "random" ]; then
                 --beam 1\
                 --temperature ${TEMP} \
                 --path $MODEL  | tee $SYN_DATA/iteractive_translation.{TGT}
+    echo "random-sampling translation (completed)"
 fi
 
 grep ^H $SYN_DATA/iteractive_translation.{TGT} | cut -f3 > $SYN_DATA/corpus.${TGT}
