@@ -1,3 +1,6 @@
+#!/bin/bash
+set -e
+
 EXPDIR=$PWD
 
 DATASET=$EXPDIR/dataset
