@@ -31,7 +31,7 @@ if [ ! -d $TRANSLATION_DATA ]; then
         echo "[$lang]..."
         for SET in $DATA_NAME; do
             echo "${SET}..."
-            python3 $EXPDIR/subword-nmt/apply_bpe.py -c ${BPE_MODEL}/code.${BPESIZE}.bpe < ${TRUECASED_DATA}/${SET}.${lang} > ${TRANSLATION_DATA}/${SET}.${lang} 
+            subword-nmt apply-bpe -c ${BPE_MODEL}/code.${BPESIZE}.bpe < ${TRUECASED_DATA}/${SET}.${lang} > ${TRANSLATION_DATA}/${SET}.${lang} 
         done
     done
 
