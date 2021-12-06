@@ -1,6 +1,7 @@
 #!/bin/bash
 EXPDIR=$PWD 
 
+
 read -p "GPUS: " GPUS
 read -p "MODEL NAME: " MODEL_NAME
 read -p "IBT STEP: " STEP
