@@ -48,7 +48,7 @@ if [ ! -d $TRANSLATION_DATA ]; then
 
         for SET in $DATA_NAME; do
             echo "${SET}..."
-            cat ${BPE_DATA}/${SET}.${lang}  | awk -vtgt_tag="${TAG}" '{ print tgt_tag" "$0 }' > ${TRANSLATION_DATA}/tagged-${SET}.${lang} 
+            cat  ${TRANSLATION_DATA}/${SET}.${lang}   | awk -vtgt_tag="${TAG}" '{ print tgt_tag" "$0 }' > ${TRANSLATION_DATA}/tagged-${SET}.${lang} 
         done
     done
 
