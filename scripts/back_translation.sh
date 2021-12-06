@@ -31,12 +31,12 @@ if [ $STEP -gt 1 ]: then
     BIN_DATA=$EXPDIR/dataset/ibt_step_${PREVIOS_STEP}_${TRANSLATION_TYPE}/bin-data
 fi
 
-if [ -d $IBT_DATASET ]; then
+if [ ! -d $IBT_DATASET ]; then
     mkdir -p $IBT_DATASET
 fi
 
 SYN_DATA=$IBT_DATASET/synthetic-data
-if [ -d $SYN_DATA ]; then
+if [ ! -d $SYN_DATA ]; then
     mkdir -p $SYN_DATA
 fi
 

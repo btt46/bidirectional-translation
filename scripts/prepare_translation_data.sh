@@ -9,7 +9,7 @@ BPE_MODEL=$DATASET/bpe-model
 
 TAG=""
 
-if [ -d $TRANSLATION_DATA ]; then
+if [ ! -d $TRANSLATION_DATA ]; then
     mkdir -p $IBT_DATASET
 
     echo "=> Preparing...."
