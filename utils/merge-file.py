@@ -25,9 +25,13 @@ def merge_file(file_1, file_2, file_3,stride,out_file,type):
         if type == "sentence":
             for i in range(len(file_content_1)):
                 fp.write(file_content_1[i])
+                for j in range(stride):
+                    fp.write(file_content_3[i*stride*2+j])
+
                 fp.write(file_content_2[i])
                 for j in range(stride):
-                    fp.write(file_content_3[i+stride])
+                    fp.write(file_content_3[i*stride*2+stride+j])
+
         if type == "all":
             fp.write(file_content_1)
             fp.write(file_content_2)
