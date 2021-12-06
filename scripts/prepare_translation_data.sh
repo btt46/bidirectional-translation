@@ -37,11 +37,11 @@ if [ ! -d $TRANSLATION_DATA ]; then
 
     for lang in en vi; do
         echo "[$lang]..."
-        if [ "${SRC}" = "en" ] ; then
+        if [ "${lang}" = "en" ] ; then
             TAG="<e2v>"
         fi
 
-        if [ "${SRC}" = "vi" ] ; then
+        if [ "${lang}" = "vi" ] ; then
             TAG="<v2e>"
         fi 
         echo "tag: ${TAG}"
