@@ -2,6 +2,7 @@
 set -e
 
 EXPDIR=$PWD
+BPESIZE=5000
 
 # Libraries and Framework
 MOSES=$EXPDIR/mosesdecoder/scripts
