@@ -6,6 +6,7 @@ EXPDIR=$PWD
 DATASET=$EXPDIR/dataset
 TRANSLATION_DATA=$DATASET/translation-data
 BPE_MODEL=$DATASET/bpe-model
+TRUECASED_DATA=$DATASET/ibt_step_0/truecased
 
 TAG=""
 
