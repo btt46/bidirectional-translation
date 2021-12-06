@@ -40,7 +40,7 @@ if [ ! -d $SYN_DATA ]; then
     mkdir -p $SYN_DATA
 fi
 
-if [ $TRANSLATION_TYPE == "beam" ]; then
+if [ $TRANSLATION_TYPE = "beam" ]; then
     echo "=> beam-search translation (start)"
     CUDA_VISIBLE_DEVICES=$GPUS  python3 $EXPDIR/fairseq/fairseq_cli/interactive.py $BIN_DATA \
                         --input ${TRANSLATION_DATA}/tagged-translation.${SRC} \
@@ -49,7 +49,7 @@ if [ $TRANSLATION_TYPE == "beam" ]; then
     echo "=> beam-search translation (completed)"
 fi
 
-if [ $TRANSLATION_TYPE == "random" ]; then
+if [ $TRANSLATION_TYPE = "random" ]; then
     echo "random-sampling translation (start)"			
     CUDA_VISIBLE_DEVICES=$GPUS  python3 $EXPDIR/fairseq/fairseq_cli/interactive.py $BIN_DATA \
                 --input ${TRANSLATION_DATA}/tagged-translation.${SRC} \
