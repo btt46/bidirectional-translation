@@ -16,7 +16,7 @@ BIN_DATA=$DATASET/ibt_step_${STEP}/bin-data
 BPE_DATA=$DATASET/ibt_step_${STEP}/bpe-data
 
 DETOK=$EXPDIR/utils/detokenize.py
-BLEU=$PWD/multi-bleu.perl
+BLEU=$PWD/multi-bleu.pl
 
 RESULTS=$EXPDIR/results
 
