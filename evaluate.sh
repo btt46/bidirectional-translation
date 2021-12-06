@@ -51,7 +51,7 @@ do
 	echo "${MODELS}/${MODEL_NAME}/checkpoint${i}.pt" >> $MODEL_RESULT/result
 	# The model used for evaluate
 	MODEL=$EXPDIR/models/${MODEL_NAME}/checkpoint${i}.pt
-	CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
+	CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 python3 $EXPDIR/fairseq/fairseq_cli/interactive.py $BIN_DATA \
 	            --input $BPE_DATA/test.src \
 	            --path $MODEL \
 	            --beam 5 | tee $MODEL_RESULT/interactive.test.translation
@@ -66,8 +66,8 @@ do
 	$DETRUECASER < $MODEL_RESULT/test.translation.en > $MODEL_RESULT/detruecase.en
 
 	# detokenize
-	python3.6 $DETOK $MODEL_RESULT/detruecase.vi $HYP_VI
-	python3.6 $DETOK $MODEL_RESULT/detruecase.en $HYP_EN
+	python3 $DETOK $MODEL_RESULT/detruecase.vi $HYP_VI
+	python3 $DETOK $MODEL_RESULT/detruecase.en $HYP_EN
 
 	# English to Vietnamese
 	echo "TEST" >> $MODEL_RESULT/result
@@ -80,7 +80,7 @@ do
 
 
 	####### DEV ######
-	CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
+	CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 python3 $EXPDIR/fairseq/fairseq_cli/interactive.py $BIN_DATA \
 	            --input $BPE_DATA/valid.src \
 	            --path $MODEL \
 	            --beam 5 | tee $MODEL_RESULT/interactive.valid.translation
@@ -96,8 +96,8 @@ do
 	$DETRUECASER < $MODEL_RESULT/valid.translation.en > $MODEL_RESULT/valid_detruecase.en
 
 	# detokenize
-	python3.6 $DETOK $MODEL_RESULT/valid_detruecase.vi $VALID_HYP_VI
-	python3.6 $DETOK $MODEL_RESULT/valid_detruecase.en $VALID_HYP_EN
+	python3 $DETOK $MODEL_RESULT/valid_detruecase.vi $VALID_HYP_VI
+	python3 $DETOK $MODEL_RESULT/valid_detruecase.en $VALID_HYP_EN
 
 	# English to Vietnamese
 	echo "VALID" >> $MODEL_RESULT/result
