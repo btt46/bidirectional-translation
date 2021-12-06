@@ -22,11 +22,11 @@ TRANSLATION_DATA=$DATASET/translation-data
 IBT_DATASET=$EXPDIR/dataset/ibt_step_${STEP}_${TRANSLATION_TYPE}
 MODEL=$EXPDIR/models/${MODEL_NAME}/checkpoint${CHECKPOINT}.pt
 
-if [ $STEP -eq 1 ]: then
+if [ $STEP -eq 1 ]; then
     BIN_DATA=$EXPDIR/dataset/ibt_step_0/bin-data
 fi
 
-if [ $STEP -gt 1 ]: then
+if [ $STEP -gt 1 ]; then
     PREVIOS_STEP=$((STEP-1))
     BIN_DATA=$EXPDIR/dataset/ibt_step_${PREVIOS_STEP}_${TRANSLATION_TYPE}/bin-data
 fi

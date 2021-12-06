@@ -6,7 +6,7 @@ read -p "GPUS: " GPUS
 read -p "MODEL NAME: " MODEL_NAME
 read -p "IBT STEP: " STEP
 
-if [ $STEP -ge 1 ]: then
+if [ $STEP -ge 1 ]; then
     read -p "beam or random: " TRANSLATION_TYPE
 fi
 
@@ -30,11 +30,11 @@ if [ ! -d $RESULTS ]; then
     mkdir -p $RESULTS
 fi
 
-if [ $STEP -eq 0 ]: then
+if [ $STEP -eq 0 ]; then
 	MODEL_RESULT=$RESULTS/result_step_${STEP}
 fi
 
-if [ $STEP -ge 1 ]: then
+if [ $STEP -ge 1 ]; then
     MODEL_RESULT=$RESULTS/result_step_${STEP}_${TRANSLATION_TYPE}
 fi
 
