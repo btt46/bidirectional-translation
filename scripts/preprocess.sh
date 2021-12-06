@@ -43,15 +43,18 @@ if [ $IBT != "N" ]; then
 
     if [ $STEP -eq 0 ]; then
         IBT_DATASET=$EXPDIR/dataset/ibt_step_${STEP}
+        
     fi
 
     if [ $STEP -gt 0 ]; then
-        read -p "Beam or Random: " TRANSLATION_TYPE
+        read -p "beam or random: " TRANSLATION_TYPE
         IBT_DATASET=$EXPDIR/dataset/ibt_step_${STEP}_${TRANSLATION_TYPE}
     fi
 
-    rm -rf $IBT_DATASET
-    mkdir -p $IBT_DATASET
+    if [ -d $IBT_DATASET ]; then
+        mkdir -p $IBT_DATASET
+    fi
+   
 
     DATA=$IBT_DATASET/data
     PROCESSED_DATA=$IBT_DATASET/processed
@@ -140,7 +143,7 @@ for lang in en vi; do
 done
 
 
-if [ $STEP -gt -1 ]; then
+if [ $STEP -eq 0 ]; then
     # prepare data for the bidirectional model
     echo "=> Merge data for the bidirectional model"
     for SET in $DATA_NAME ; do
@@ -160,17 +163,18 @@ if [ $STEP -gt -1 ]; then
 
     echo "=> merged"
 
-    # learn bpe model with training data
-    if [ ! -d $BPE_MODEL ]; then  
-        mkdir -p $BPE_MODEL
-    
+fi
+
+# learn bpe model with training data
+if [ ! -d $BPE_MODEL ]; then  
+
+    mkdir -p $BPE_MODEL
 
     echo "=> LEARNING BPE MODEL: $BPE_MODEL"
     subword-nmt learn-joint-bpe-and-vocab --input ${PROCESSED_DATA}/train.src ${PROCESSED_DATA}/train.tgt \
                     -s $BPESIZE -o $BPE_MODEL/code.${BPESIZE}.bpe \
                     --write-vocabulary $BPE_MODEL/train.src.vocab $BPE_MODEL/train.tgt.vocab 
 
-    fi
 fi
 
 # apply sub-word segmentation
