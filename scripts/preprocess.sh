@@ -179,8 +179,8 @@ if [ $STEP -gt 0 ]; then
     touch ${PROCESSED_DATA}/train.src
     touch ${PROCESSED_DATA}/train.tgt
     python3 ${UTILS}/merge-file.py  \
-                        -s1 ${SYN_DATA}/train.en\
-                        -s2 ${SYN_DATA}/train.vi\
+                        -s1 ${SYN_DATA}/syn.en\
+                        -s2 ${SYN_DATA}/syn.vi\
                         -s3 ${PREVIOUS_DATA}/${SET}.src\
                         -msrc ${PROCESSED_DATA}/train.src \
                         -t1 ${TRANSLATION_DATA}/train.vi\
