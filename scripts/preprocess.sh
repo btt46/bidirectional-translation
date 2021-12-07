@@ -174,6 +174,10 @@ if [ $STEP -eq 1 ]; then
     PREVIOUS_DATA=$DATASET/ibt_step_0/processed
 fi
 
+if [ $STEP -gt 1 ]; then
+    PREVIOUS_DATA=$DATASET/ibt_step_$((STEP-1))/processed
+fi
+
 if [ $STEP -gt 0 ]; then
 
     touch ${PROCESSED_DATA}/train.src

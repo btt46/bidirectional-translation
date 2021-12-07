@@ -18,12 +18,12 @@ if [ ! -d $MODELS ]; then
     mkdir -p $MODELS
 fi
 
-IBT_DATASET=$EXPDIR/dataset/ibt_step_${STEP}/bin-data
 
 if [ ${STEP} -eq 0 ]; then
     echo "=>> Training a bidirectional model..."
     echo "=> IBT step: ${STEP}"
-    CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $IBT_DATASET -s src -t tgt \
+	IBT_DATASET=$EXPDIR/dataset/ibt_step_${STEP}/bin-data
+    CUDA_VISIBLE_DEVICES=$GPUS python3 $EXPDIR/fairseq/fairseq_cli/train.py $IBT_DATASET -s src -t tgt \
 		            --log-interval 100 \
 					--log-format json \
 					--max-epoch ${EPOCHS} \
@@ -46,5 +46,50 @@ if [ ${STEP} -eq 0 ]; then
 					--share-decoder-input-output-embed \
 					--share-all-embeddings \
 					--save-dir $MODELS/$MODEL_NAME \
+					2>&1 | tee $LOG/${MODEL_NAME}
+fi
+
+if [ ${STEP} -gt 0 ]; then
+	echo "beam or random" TRANSLATION_TYPE
+	echo "Pretrained model name: " PRETRAINED_MODEL_NAME
+	echo "Which checkpoint do you choose? " PRETRAIND_MODEL_CHECKPOINT
+
+	echo "=>> Training a bidirectional model..."
+    echo "=> IBT step: ${STEP}"
+
+	PRETRAINED_MODEL=$MODELS/${PRETRAINED_MODEL_NAME}/checkpoint${PRETRAIND_MODEL_CHECKPOINT}.pt
+
+	if [ ${STEP} -eq 1 ];then
+		IBT_DATASET=$EXPDIR/dataset/ibt_step_0
+	fi
+
+	if [ ${STEP} -gt 1 ];then
+		IBT_DATASET=$EXPDIR/dataset/ibt_step_${STEP}_${TRANSLATION_TYPE}
+	fi
+
+	CUDA_VISIBLE_DEVICES=$GPUS python3 $EXPDIR/fairseq/fairseq_cli/train.py $IBT_DATASET -s src -t tgt \
+		            --log-interval 100 \
+					--log-format json \
+					--max-epoch ${EPOCHS} \
+		    		--optimizer adam --lr 0.0001 \
+					--clip-norm 0.0 \
+					--max-tokens 4000 \
+					--no-progress-bar \
+					--log-interval 100 \
+					--min-lr '1e-09' \
+					--weight-decay 0.0001 \
+					--criterion label_smoothed_cross_entropy \
+					--label-smoothing 0.1 \
+					--lr-scheduler inverse_sqrt \
+					--warmup-updates 4000 \
+					--warmup-init-lr '1e-08' \
+					--adam-betas '(0.9, 0.98)' \
+					--arch transformer_iwslt_de_en \
+					--dropout 0.1 \
+					--attention-dropout 0.1 \
+					--share-decoder-input-output-embed \
+					--share-all-embeddings \
+					--finetune-from-model $PRETRAINED_MODEL\
+					--save-dir $MODEL \
 					2>&1 | tee $LOG/${MODEL_NAME}
 fi
