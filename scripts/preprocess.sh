@@ -181,11 +181,11 @@ if [ $STEP -gt 0 ]; then
     python3.6 ${UTILS}/merge-file.py  \
                         -s1 ${SYN_DATA}/syn.en\
                         -s2 ${SYN_DATA}/syn.vi\
-                        -s3 ${PREVIOUS_DATA}/${SET}.src\
+                        -s3 ${PREVIOUS_DATA}/train.src\
                         -msrc ${PROCESSED_DATA}/train.src \
                         -t1 ${TRANSLATION_DATA}/train.vi\
                         -t2 ${TRANSLATION_DATA}/train.en\
-                        -t3 ${PREVIOUS_DATA}/${SET}.tgt\
+                        -t3 ${PREVIOUS_DATA}/train.tgt\
                         -mtgt ${PROCESSED_DATA}/train.tgt \
                         -t "sentence" -stride $STEP
 
