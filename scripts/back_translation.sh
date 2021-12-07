@@ -60,11 +60,11 @@ if [ $TRANSLATION_TYPE = "random" ]; then
                 --nbest 1\
                 --beam 1\
                 --temperature ${TEMP} \
-                --path $MODEL  | tee $SYN_DATA/iteractive_translation.{TGT}
+                --path $MODEL  | tee $SYN_DATA/iteractive_translation.${TGT}
     echo "random-sampling translation (completed)"
 fi
 
-grep ^H $SYN_DATA/iteractive_translation.{TGT} | cut -f3 > $SYN_DATA/corpus.${TGT}
+grep ^H $SYN_DATA/iteractive_translation.${TGT} | cut -f3 > $SYN_DATA/corpus.${TGT}
 
 cat $SYN_DATA/corpus.${TGT}  | sed -r 's/(@@ )|(@@ ?$)//g'  > $SYN_DATA/tok.${TGT}
 
