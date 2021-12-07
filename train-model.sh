@@ -90,6 +90,6 @@ if [ ${STEP} -gt 0 ]; then
 					--share-decoder-input-output-embed \
 					--share-all-embeddings \
 					--finetune-from-model $PRETRAINED_MODEL\
-					--save-dir $MODEL \
+					--save-dir $MODELS/$MODEL_NAME \
 					2>&1 | tee $LOG/${MODEL_NAME}
 fi
