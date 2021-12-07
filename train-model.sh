@@ -23,7 +23,7 @@ if [ ${STEP} -eq 0 ]; then
     echo "=>> Training a bidirectional model..."
     echo "=> IBT step: ${STEP}"
 	IBT_DATASET=$EXPDIR/dataset/ibt_step_${STEP}/bin-data
-    CUDA_VISIBLE_DEVICES=$GPUS python3 $EXPDIR/fairseq/fairseq_cli/train.py $IBT_DATASET -s src -t tgt \
+    CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $IBT_DATASET -s src -t tgt \
 		            --log-interval 100 \
 					--log-format json \
 					--max-epoch ${EPOCHS} \
@@ -67,7 +67,7 @@ if [ ${STEP} -gt 0 ]; then
 		IBT_DATASET=$EXPDIR/dataset/ibt_step_${STEP}_${TRANSLATION_TYPE}
 	fi
 
-	CUDA_VISIBLE_DEVICES=$GPUS python3 $EXPDIR/fairseq/fairseq_cli/train.py $IBT_DATASET -s src -t tgt \
+	CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $IBT_DATASET -s src -t tgt \
 		            --log-interval 100 \
 					--log-format json \
 					--max-epoch ${EPOCHS} \
