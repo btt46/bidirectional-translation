@@ -46,7 +46,7 @@ if [ $TRANSLATION_TYPE = "beam" ]; then
     CUDA_VISIBLE_DEVICES=$GPUS  python3 $EXPDIR/fairseq/fairseq_cli/interactive.py $BIN_DATA \
                         --input ${TRANSLATION_DATA}/tagged-train.${SRC} \
                         --beam 5 \
-                        --path $MODEL  | tee $SYN_DATA/iteractive_translation.{TGT}
+                        --path $MODEL  | tee $SYN_DATA/iteractive_translation.${TGT}
     echo "=> beam-search translation (completed)"
 fi
 
