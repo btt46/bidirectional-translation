@@ -114,7 +114,7 @@ for lang in en vi; do
     echo "[$lang]..."
     for set in $DATA_NAME; do
         echo "$set..."
-        python3.6 ${UTILS}/normalize.py ${DATA}/${set}.${lang}  ${NORMALIZED_DATA}/${set}.${lang}
+        python3 ${UTILS}/normalize.py ${DATA}/${set}.${lang}  ${NORMALIZED_DATA}/${set}.${lang}
     done
 done
 
@@ -122,7 +122,7 @@ done
 echo "=> tokenize..."
 for SET in $DATA_NAME ; do
     env LC_ALL=en_US.UTF-8 $TOK -l en < ${NORMALIZED_DATA}/${SET}.en > ${TOKENIZED_DATA}/${SET}.en
-    python3.6 ${UTILS}/tokenize-vi.py  ${NORMALIZED_DATA}/${SET}.vi ${TOKENIZED_DATA}/${SET}.vi
+    python3 ${UTILS}/tokenize-vi.py  ${NORMALIZED_DATA}/${SET}.vi ${TOKENIZED_DATA}/${SET}.vi
 done
 
 # Truecaser
@@ -150,7 +150,7 @@ if [ $STEP -eq 0 ]; then
     for SET in $DATA_NAME ; do
         touch ${PROCESSED_DATA}/${SET}.src
         touch ${PROCESSED_DATA}/${SET}.tgt
-        python3.6 ${UTILS}/merge-file.py  \
+        python3 ${UTILS}/merge-file.py  \
                                         -s1 ${TRUECASED_DATA}/${SET}.en\
                                         -s2 ${TRUECASED_DATA}/${SET}.vi\
                                         -s3 ${PROCESSED_DATA}/${SET}.src\
@@ -178,7 +178,7 @@ if [ $STEP -gt 0 ]; then
 
     touch ${PROCESSED_DATA}/train.src
     touch ${PROCESSED_DATA}/train.tgt
-    python3.6 ${UTILS}/merge-file.py  \
+    python3 ${UTILS}/merge-file.py  \
                         -s1 ${SYN_DATA}/train.en\
                         -s2 ${SYN_DATA}/train.vi\
                         -s3 ${PREVIOUS_DATA}/${SET}.src\
@@ -223,7 +223,7 @@ echo "=> Done"
 echo "=> Add tags"
 
 for SET in $DATA_NAME; do
-    python3.6 $UTILS/addTag.py -f $BPE_DATA/${SET}.src -p1 1 -t1 "<e2v>" -p2 2 -t2 "<v2e>" 
+    python3 $UTILS/addTag.py -f $BPE_DATA/${SET}.src -p1 1 -t1 "<e2v>" -p2 2 -t2 "<v2e>" 
 done
 
 echo "=> Done"
