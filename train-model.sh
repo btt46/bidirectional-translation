@@ -60,11 +60,11 @@ if [ ${STEP} -gt 0 ]; then
 	PRETRAINED_MODEL=$MODELS/${PRETRAINED_MODEL_NAME}/checkpoint${PRETRAIND_MODEL_CHECKPOINT}.pt
 
 	if [ ${STEP} -eq 1 ];then
-		IBT_DATASET=$EXPDIR/dataset/ibt_step_0
+		IBT_DATASET=$EXPDIR/dataset/ibt_step_0/bin-data
 	fi
 
 	if [ ${STEP} -gt 1 ];then
-		IBT_DATASET=$EXPDIR/dataset/ibt_step_${STEP}_${TRANSLATION_TYPE}
+		IBT_DATASET=$EXPDIR/dataset/ibt_step_${STEP}_${TRANSLATION_TYPE}/bin-data
 	fi
 
 	CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $IBT_DATASET -s src -t tgt \
