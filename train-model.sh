@@ -50,9 +50,9 @@ if [ ${STEP} -eq 0 ]; then
 fi
 
 if [ ${STEP} -gt 0 ]; then
-	read -p "beam or random" TRANSLATION_TYPE
+	read -p "beam or random: " TRANSLATION_TYPE
 	read -p "Pretrained model name: " PRETRAINED_MODEL_NAME
-	read -p "Which checkpoint do you choose? " PRETRAIND_MODEL_CHECKPOINT
+	read -p "Which checkpoint do you choose: " PRETRAIND_MODEL_CHECKPOINT
 
 	echo "=>> Training a bidirectional model..."
     echo "=> IBT step: ${STEP}"
