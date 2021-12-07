@@ -40,23 +40,22 @@ if [ $STEP -eq 0 ]; then
 	MODEL_RESULT=$RESULTS/result_step_${STEP}
 	REF_EN=$DATASET/ibt_step_${STEP}/data/test.en
 	REF_VI=$DATASET/ibt_step_${STEP}/data/test.vi
+	VALID_REF_EN=$DATASET/ibt_step_${STEP}/data/valid.en
+	VALID_REF_VI=$DATASET/ibt_step_${STEP}/data/valid.vi
 fi
 
 if [ $STEP -ge 1 ]; then
     MODEL_RESULT=$RESULTS/result_step_${STEP}_${TRANSLATION_TYPE}
 	REF_EN=$DATASET/ibt_step_${STEP}_${TRANSLATION_TYPE}/data/test.en
 	REF_VI=$DATASET/ibt_step_${STEP}_${TRANSLATION_TYPE}/data/test.vi
+	VALID_REF_EN=$DATASET/ibt_step_${STEP}_${TRANSLATION_TYPE}/data/valid.en
+	VALID_REF_VI=$DATASET/ibt_step_${STEP}_${TRANSLATION_TYPE}/data/valid.vi
 fi
 
 if [ ! -d $MODEL_RESULT ]; then
     mkdir -p $MODEL_RESULT
 fi
 
-
-
-
-VALID_REF_EN=$DATASET/ibt_step_${STEP}/data/valid.en
-VALID_REF_VI=$DATASET/ibt_step_${STEP}/data/valid.vi
 
 HYP_EN=$MODEL_RESULT/hyp.en
 HYP_VI=$MODEL_RESULT/hyp.vi
