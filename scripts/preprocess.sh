@@ -255,8 +255,8 @@ if [ $STEP -eq 1 ]; then
 			--trainpref $BPE_DATA/train \
 			--validpref $BPE_DATA/valid \
 			--testpref $BPE_DATA/test \
-            --tgtdict $DATASET/ibt_step_0/dict.tgt.txt \
-			--srcdict $DATASET/ibt_step_0/dict.src.txt \
+            --tgtdict $DATASET/ibt_step_0/bin-data/dict.tgt.txt \
+			--srcdict $DATASET/ibt_step_0/bin-data/dict.src.txt \
 			--workers 32 \
             2>&1 | tee $PREPROCESS_LOG
 fi
