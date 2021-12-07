@@ -36,9 +36,10 @@ if [ ! -d $IBT_DATASET ]; then
 fi
 
 SYN_DATA=$IBT_DATASET/synthetic-data
-if [ ! -d $SYN_DATA ]; then
-    mkdir -p $SYN_DATA
-fi
+rm -rf $SYN_DATA
+
+mkdir -p $SYN_DATA
+
 
 if [ $TRANSLATION_TYPE = "beam" ]; then
     echo "=> beam-search translation (start)"
