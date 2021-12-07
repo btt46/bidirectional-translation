@@ -6,9 +6,6 @@ read -p "GPUS: " GPUS
 read -p "MODEL NAME: " MODEL_NAME
 read -p "IBT STEP: " STEP
 
-if [ $STEP -ge 1 ]; then
-    read -p "beam or random: " TRANSLATION_TYPE
-fi
 
 MOSES=$EXPDIR/mosesdecoder/scripts
 DETRUECASER=$MOSES/recaser/detruecase.perl
@@ -16,8 +13,17 @@ DETRUECASER=$MOSES/recaser/detruecase.perl
 DATASET=$EXPDIR/dataset
 
 PROCESSED_DATA=$DATASET/ibt_step_${STEP}/processed-data
-BIN_DATA=$DATASET/ibt_step_${STEP}/bin-data
-BPE_DATA=$DATASET/ibt_step_${STEP}/bpe-data
+
+if [ $STEP -eq 0 ]; then
+	BIN_DATA=$DATASET/ibt_step_${STEP}/bin-data
+	BPE_DATA=$DATASET/ibt_step_${STEP}/bpe-data
+fi
+
+if [ $STEP -ge 1 ]; then
+    read -p "beam or random: " TRANSLATION_TYPE
+	BIN_DATA=$DATASET/ibt_step_${STEP}_${TRANSLATION_TYPE}/bin-data
+	BPE_DATA=$DATASET/ibt_step_${STEP}_${TRANSLATION_TYPE}/bpe-data
+fi
 
 DETOK=$EXPDIR/utils/detokenize.py
 BLEU=$PWD/multi-bleu.pl
