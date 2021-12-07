@@ -187,7 +187,7 @@ if [ $STEP -gt 0 ]; then
                         -t2 ${TRANSLATION_DATA}/train.en\
                         -t3 ${PREVIOUS_DATA}/${SET}.tgt\
                         -mtgt ${PROCESSED_DATA}/train.tgt \
-                        -t "sentence" -stride 0
+                        -t "sentence" -stride $STEP
 
     cp ${PREVIOUS_DATA}/valid.src ${PROCESSED_DATA}/valid.src
     cp ${PREVIOUS_DATA}/valid.tgt ${PROCESSED_DATA}/valid.tgt
@@ -238,14 +238,7 @@ PREPROCESS_LOG=$LOGS/preprocess/log.preprocess
 
 if [ $STEP -eq 0 ]; then
     PREPROCESS_LOG=$LOGS/preprocess/log.preprocess.IBT.${STEP}
-fi
-
-if [ $STEP -gt 0 ]; then
-    PREPROCESS_LOG=$LOGS/preprocess/log.preprocess.IBT.${TRANSLATION_TYPE}.${STEP}
-fi
-
-
-fairseq-preprocess -s src -t tgt \
+    fairseq-preprocess -s src -t tgt \
 			--destdir $BIN_DATA \
 			--trainpref $BPE_DATA/train \
 			--validpref $BPE_DATA/valid \
@@ -253,3 +246,21 @@ fairseq-preprocess -s src -t tgt \
 			--joined-dictionary \
 			--workers 32 \
             2>&1 | tee $PREPROCESS_LOG
+fi
+
+if [ $STEP -eq 1 ]; then
+    PREPROCESS_LOG=$LOGS/preprocess/log.preprocess.IBT.${TRANSLATION_TYPE}.${STEP}
+    fairseq-preprocess -s src -t tgt \
+			--destdir $BIN_DATA \
+			--trainpref $BPE_DATA/train \
+			--validpref $BPE_DATA/valid \
+			--testpref $BPE_DATA/test \
+            --tgtdict $DATASET/ibt_step_0/dict.tgt.txt \
+			--srcdict $DATASET/ibt_step_0/dict.src.txt \
+			--workers 32 \
+            2>&1 | tee $PREPROCESS_LOG
+fi
+
+
+
+
