@@ -143,9 +143,10 @@ for lang in en vi; do
 done
 
 
+
+echo "=> Merge data for the bidirectional model"
 if [ $STEP -eq 0 ]; then
     # prepare data for the bidirectional model
-    echo "=> Merge data for the bidirectional model"
     for SET in $DATA_NAME ; do
         touch ${PROCESSED_DATA}/${SET}.src
         touch ${PROCESSED_DATA}/${SET}.tgt
@@ -163,6 +164,35 @@ if [ $STEP -eq 0 ]; then
 
     echo "=> merged"
 
+fi
+
+IBT_DATASET=$EXPDIR/dataset/ibt_step_${STEP}_${TRANSLATION_TYPE}
+SYN_DATA=$IBT_DATASET/synthetic-data
+TRANSLATION_DATA=$DATASET/translation-data
+
+if [ $STEP -eq 1 ]; then
+    PREVIOUS_DATA=$DATASET/ibt_step_0/processed
+fi
+
+if [ $STEP -gt 0 ]; then
+
+    touch ${PROCESSED_DATA}/train.src
+    touch ${PROCESSED_DATA}/train.tgt
+    python3.6 ${UTILS}/merge-file.py  \
+                        -s1 ${SYN_DATA}/train.en\
+                        -s2 ${SYN_DATA}/train.vi\
+                        -s3 ${PREVIOUS_DATA}/${SET}.src\
+                        -msrc ${PROCESSED_DATA}/train.src \
+                        -t1 ${TRANSLATION_DATA}/train.vi\
+                        -t2 ${TRANSLATION_DATA}/train.en\
+                        -t3 ${PREVIOUS_DATA}/${SET}.tgt\
+                        -mtgt ${PROCESSED_DATA}/train.tgt \
+                        -t "sentence" -stride 0
+
+    cp ${PREVIOUS_DATA}/valid.src ${PROCESSED_DATA}/valid.src
+    cp ${PREVIOUS_DATA}/valid.tgt ${PROCESSED_DATA}/valid.tgt
+    cp ${PREVIOUS_DATA}/test.src ${PROCESSED_DATA}/test.src
+    cp ${PREVIOUS_DATA}/test.tgt ${PROCESSED_DATA}/test.tgt
 fi
 
 # learn bpe model with training data
