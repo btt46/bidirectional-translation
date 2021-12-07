@@ -36,9 +36,11 @@ if [ ! -d $IBT_DATASET ]; then
 fi
 
 SYN_DATA=$IBT_DATASET/synthetic-data
-rm -rf $SYN_DATA
 
-mkdir -p $SYN_DATA
+if [ ! -d $SYN_DATA ]; then
+    mkdir -p $SYN_DATA
+fi
+
 
 
 if [ $TRANSLATION_TYPE = "beam" ]; then
