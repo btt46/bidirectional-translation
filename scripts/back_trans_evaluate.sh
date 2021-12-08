@@ -9,6 +9,7 @@ DETRUECASER=$MOSES/recaser/detruecase.perl
 BACK_EVALUATE=$EXPDIR/back_trans_evaluate
 
 UTILS=$EXPDIR/utils
+DETOK=$EXPDIR/utils/detokenize.py
 
 if [ ! -d $BACK_EVALUATE ]; then
     mkdir -p $BACK_EVALUATE
@@ -40,6 +41,7 @@ HYP_VI=$RESULT_FOLDER/hyp.vi
 
 cat $DATASET/translation-data/train.en | sed -r 's/(@@ )|(@@ ?$)//g' > $REF_EN
 cat $DATASET/translation-data/train.vi | sed -r 's/(@@ )|(@@ ?$)//g' > $REF_VI
+python3 $DETOK $REF_VI $REF_VI
 
 cat $SYN_DATA/syn.en > $HYP_EN
 cat $SYN_DATA/syn.vi > $HYP_VI
