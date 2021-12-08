@@ -22,12 +22,19 @@ SYN_DATA=$DATASET/ibt_step_${STEP}_${TRANSLATION_TYPE}/synthetic-data
 REF_EN=$DATASET/ibt_step_${STEP}_${TRANSLATION_TYPE}/train.en
 REF_VI=$DATASET/ibt_step_${STEP}_${TRANSLATION_TYPE}/train.vi
 
+RESULT_FOLDER=$BACK_EVALUATE/ibt_step_${STEP}_${TRANSLATION_TYPE}
 
-HYP_EN=$BACK_EVALUATE/ibt_step_${STEP}_${TRANSLATION_TYPE}/hyp.en
-HYP_VI=$BACK_EVALUATE/ibt_step_${STEP}_${TRANSLATION_TYPE}/hyp.vi
+if [ ! -d $RESULT_FOLDER ]; then
+    mkdir -p $RESULT_FOLDER
+fi
+
+
+HYP_EN=$RESULT_FOLDER/hyp.en
+HYP_VI=$RESULT_FOLDER/hyp.vi
+
 
 $DETRUECASER < $SYN_DATA/syn.en > $HYP_EN
 $DETRUECASER < $SYN_DATA/syn.vi > $HYP_VI
 
-env LC_ALL=en_US.UTF-8 perl $BLEU $REF_VI < $HYP_VI > $BACK_EVALUATE/ibt_step_${STEP}_${TRANSLATION_TYPE}/result.vi
-env LC_ALL=en_US.UTF-8 perl $BLEU $REF_EN < $HYP_EN > $BACK_EVALUATE/ibt_step_${STEP}_${TRANSLATION_TYPE}/result.en
+env LC_ALL=en_US.UTF-8 perl $BLEU $REF_VI < $HYP_VI > $RESULT_FOLDER/result.vi
+env LC_ALL=en_US.UTF-8 perl $BLEU $REF_EN < $HYP_EN > $RESULT_FOLDER/result.en
