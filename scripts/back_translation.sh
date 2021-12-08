@@ -70,10 +70,10 @@ grep ^H $SYN_DATA/iteractive_translation.${TGT} | cut -f3 > $SYN_DATA/corpus.${T
 
 cat $SYN_DATA/corpus.${TGT}  | sed -r 's/(@@ )|(@@ ?$)//g'  > $SYN_DATA/tok.${TGT}
 
-# if [ "${TGT}" = "vi" ] ; then
-#     python3 $DETOK $SYN_DATA/tok.${TGT} $SYN_DATA/syn.${TGT}
-# fi
+if [ "${TGT}" = "vi" ] ; then
+    python3 $DETOK $SYN_DATA/tok.${TGT} $SYN_DATA/syn.${TGT}
+fi
 
-# if [ "${TGT}" = "en" ] ; then
-#     cp $SYN_DATA/tok.${TGT} $SYN_DATA/syn.${TGT}
-# fi
+if [ "${TGT}" = "en" ] ; then
+    cp $SYN_DATA/tok.${TGT} $SYN_DATA/syn.${TGT}
+fi
