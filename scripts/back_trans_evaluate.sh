@@ -16,12 +16,12 @@ DATASET=$EXPDIR/dataset
 
 BLEU=$EXPDIR/multi-bleu.pl
 
-if [ $STEP -ge 1 ]; then
-    read -p "beam or random: " TRANSLATION_TYPE
-	SYN_DATA=$DATASET/ibt_step_${STEP}_${TRANSLATION_TYPE}/synthetic-data
-    REF_EN=$DATASET/ibt_step_${STEP}_${TRANSLATION_TYPE}/train.en
-    REF_VI=$DATASET/ibt_step_${STEP}_${TRANSLATION_TYPE}/train.vi
-fi
+
+read -p "beam or random: " TRANSLATION_TYPE
+SYN_DATA=$DATASET/ibt_step_${STEP}_${TRANSLATION_TYPE}/synthetic-data
+REF_EN=$DATASET/ibt_step_${STEP}_${TRANSLATION_TYPE}/train.en
+REF_VI=$DATASET/ibt_step_${STEP}_${TRANSLATION_TYPE}/train.vi
+
 
 HYP_EN=$BACK_EVALUATE/ibt_step_${STEP}_${TRANSLATION_TYPE}/hyp.en
 HYP_VI=$BACK_EVALUATE/ibt_step_${STEP}_${TRANSLATION_TYPE}/hyp.vi
