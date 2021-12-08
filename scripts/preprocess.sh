@@ -226,9 +226,11 @@ echo "=> Done"
 
 echo "=> Add tags"
 
-for SET in $DATA_NAME; do
-    python3.6 $UTILS/addTag.py -f $BPE_DATA/${SET}.src -p1 $((STEP+1)) -t1 "<e2v>" -p2 $(((STEP+1)*2)) -t2 "<v2e>" 
-done
+
+python3.6 $UTILS/addTag.py -f $BPE_DATA/train.src -p1 $((STEP+1)) -t1 "<e2v>" -p2 $(((STEP+1)*2)) -t2 "<v2e>" 
+python3.6 $UTILS/addTag.py -f $BPE_DATA/valid.src -p1 1 -t1 "<e2v>" -p2 2 -t2 "<v2e>" 
+python3.6 $UTILS/addTag.py -f $BPE_DATA/test.src -p1 1 -t1 "<e2v>" -p2 2 -t2 "<v2e>" 
+
 
 echo "=> Done"
 
