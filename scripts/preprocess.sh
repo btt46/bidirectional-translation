@@ -187,8 +187,8 @@ if [ $STEP -gt 0 ]; then
                         -s2 ${SYN_DATA}/syn.vi\
                         -s3 ${PREVIOUS_DATA}/train.src\
                         -msrc ${PROCESSED_DATA}/train.src \
-                        -t1 ${TRANSLATION_DATA}/train.vi\
-                        -t2 ${TRANSLATION_DATA}/train.en\
+                        -t1 $DATASET/ibt_step_0/truecased/train.vi \
+                        -t2 $DATASET/ibt_step_0/truecased/train.en \
                         -t3 ${PREVIOUS_DATA}/train.tgt\
                         -mtgt ${PROCESSED_DATA}/train.tgt \
                         -t "sentence" -stride $STEP
