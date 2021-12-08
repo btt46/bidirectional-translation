@@ -25,7 +25,7 @@ def compareFile(file_1,file_2,output_file):
             count += 1
 
     with open(output_file,"w",encoding="utf-8") as fp:
-        fp.write("Accuracy: ",100 * count / lines," (%)")
+        fp.write("Accuracy: " + str(100 * count / lines) + " (%)")
         fp.close()
 	    
     
