@@ -1,7 +1,6 @@
 #!/bin/bash
 EXPDIR=$PWD 
 
-read -p "MODEL NAME: " MODEL_NAME
 read -p "IBT STEP: " STEP
 
 MOSES=$EXPDIR/mosesdecoder/scripts
