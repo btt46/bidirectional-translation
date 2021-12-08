@@ -5,7 +5,7 @@ EXPDIR=$PWD
 read -p "GPUS: " GPUS
 read -p "MODEL NAME: " MODEL_NAME
 read -p "IBT STEP: " STEP
-read -p "EVAL (0 or 1)?: " EVAL
+read -p "EVAL (0 or 1 or 2)?: " EVAL
 
 
 MOSES=$EXPDIR/mosesdecoder/scripts
@@ -136,5 +136,40 @@ if [ $EVAL -eq 0 ]; then
 		# Vietnamese to English
 		echo "Vi > En"  >> $MODEL_RESULT/result
 		env LC_ALL=en_US.UTF-8 perl $BLEU $REF_EN < $HYP_EN >> $MODEL_RESULT/result	
+
+fi
+
+
+if [ $EVAL -eq 2 ]; then
+		read -p "Which checkpoint do you choose: " CHECKPOINT
+		MODEL=$EXPDIR/models/${MODEL_NAME}/checkpoint${CHECKPOINT}.pt
+
+		CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 python3 $EXPDIR/fairseq/fairseq_cli/interactive.py $BIN_DATA \
+					--input $BPE_DATA/valid.src \
+					--path $MODEL \
+					--beam 5 | tee $MODEL_RESULT/interactive.valid.translation
+
+		grep ^H $MODEL_RESULT/interactive.valid.translation | cut -f3 > $MODEL_RESULT/valid.translation
+
+
+		cat $MODEL_RESULT/valid.translation | awk 'NR % 2 == 1' | sed -r 's/(@@ )|(@@ ?$)//g'  > $MODEL_RESULT/valid.translation.vi
+		cat $MODEL_RESULT/valid.translation | awk 'NR % 2 == 0'| sed -r 's/(@@ )|(@@ ?$)//g' > $MODEL_RESULT/valid.translation.en
+
+		# detruecase
+		$DETRUECASER < $MODEL_RESULT/valid.translation.vi > $MODEL_RESULT/valid_detruecase.vi
+		$DETRUECASER < $MODEL_RESULT/valid.translation.en > $MODEL_RESULT/valid_detruecase.en
+
+		# detokenize
+		python3 $DETOK $MODEL_RESULT/valid_detruecase.vi $VALID_HYP_VI
+		python3 $DETOK $MODEL_RESULT/valid_detruecase.en $VALID_HYP_EN
+
+		# English to Vietnamese
+		echo "VALID" >> $MODEL_RESULT/result
+		echo "En > Vi" >> $MODEL_RESULT/result
+		env LC_ALL=en_US.UTF-8 perl $BLEU $VALID_REF_VI < $VALID_HYP_VI >> $MODEL_RESULT/result
+
+		# Vietnamese to English
+		echo "Vi > En" >> $MODEL_RESULT/result
+		env LC_ALL=en_US.UTF-8 perl $BLEU $VALID_REF_EN < $VALID_HYP_EN >> $MODEL_RESULT/result
 
 fi
