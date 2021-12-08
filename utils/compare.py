@@ -24,6 +24,8 @@ def compareFile(file_1,file_2,output_file):
         if file_content_1[i] == file_content_2[i]:
             count += 1
 
+    print(count)
+    print(lines)
     with open(output_file,"w",encoding="utf-8") as fp:
         fp.write("Accuracy: " + str(100 * count / lines) + " (%)")
         fp.close()
