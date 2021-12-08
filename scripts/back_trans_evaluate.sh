@@ -19,8 +19,8 @@ BLEU=$EXPDIR/multi-bleu.pl
 
 read -p "beam or random: " TRANSLATION_TYPE
 SYN_DATA=$DATASET/ibt_step_${STEP}_${TRANSLATION_TYPE}/synthetic-data
-REF_EN=$DATASET/ibt_step_${STEP}_${TRANSLATION_TYPE}/train.en
-REF_VI=$DATASET/ibt_step_${STEP}_${TRANSLATION_TYPE}/train.vi
+REF_EN=$DATASET/ibt_step_${STEP}_${TRANSLATION_TYPE}/data/train.en
+REF_VI=$DATASET/ibt_step_${STEP}_${TRANSLATION_TYPE}/data/train.vi
 
 RESULT_FOLDER=$BACK_EVALUATE/ibt_step_${STEP}_${TRANSLATION_TYPE}
 
