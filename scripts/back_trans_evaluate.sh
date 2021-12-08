@@ -8,6 +8,8 @@ DETRUECASER=$MOSES/recaser/detruecase.perl
 
 BACK_EVALUATE=$EXPDIR/back_trans_evaluate
 
+UTILS=$EXPDIR/utils
+
 if [ ! -d $BACK_EVALUATE ]; then
     mkdir -p $BACK_EVALUATE
 fi
@@ -36,5 +38,8 @@ HYP_VI=$RESULT_FOLDER/hyp.vi
 $DETRUECASER < $SYN_DATA/syn.en > $HYP_EN
 $DETRUECASER < $SYN_DATA/syn.vi > $HYP_VI
 
-env LC_ALL=en_US.UTF-8 perl $BLEU $REF_VI < $HYP_VI > $RESULT_FOLDER/result.vi
-env LC_ALL=en_US.UTF-8 perl $BLEU $REF_EN < $HYP_EN > $RESULT_FOLDER/result.en
+env LC_ALL=en_US.UTF-8 perl $BLEU $REF_VI < $HYP_VI > $RESULT_FOLDER/bleu.vi
+env LC_ALL=en_US.UTF-8 perl $BLEU $REF_EN < $HYP_EN > $RESULT_FOLDER/bleu.en
+
+python3 $UTILS/compare.py -f1 $REF_VI -f2 $HYP_VI -o $RESULT_FOLDER/accuracy.vi
+python3 $UTILS/compare.py -f1 $REF_EN -f2 $HYP_EN -o $RESULT_FOLDER/accuracy.en
