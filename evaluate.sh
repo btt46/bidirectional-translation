@@ -64,7 +64,7 @@ HYP_VI=$MODEL_RESULT/hyp.vi
 VALID_HYP_EN=$MODEL_RESULT/dev_hyp.en
 VALID_HYP_VI=$MODEL_RESULT/dev_hyp.vi
 
-echo >  $MODEL_RESULT/result
+echo >>  $MODEL_RESULT/result
 
 if [ $EVAL -eq 1 ]; then
 
