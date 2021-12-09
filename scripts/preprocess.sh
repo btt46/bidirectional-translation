@@ -175,7 +175,7 @@ if [ $STEP -eq 1 ]; then
 fi
 
 if [ $STEP -gt 1 ]; then
-    PREVIOUS_DATA=$DATASET/ibt_step_$((STEP-1))/processed
+    PREVIOUS_DATA=$DATASET/ibt_step_$((STEP-1))_${TRANSLATION_TYPE}/processed
 fi
 
 if [ $STEP -gt 0 ]; then
