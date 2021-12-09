@@ -267,6 +267,19 @@ if [ $STEP -eq 1 ]; then
             2>&1 | tee $PREPROCESS_LOG
 fi
 
+if [ $STEP -gt 1 ]; then
+    PREPROCESS_LOG=$LOGS/preprocess/log.preprocess.IBT.${TRANSLATION_TYPE}.${STEP}
+    fairseq-preprocess -s src -t tgt \
+			--destdir $BIN_DATA \
+			--trainpref $BPE_DATA/train \
+			--validpref $BPE_DATA/valid \
+			--testpref $BPE_DATA/test \
+            --tgtdict $DATASET/ibt_step_$((STEP-1))_${TRANSLATION_TYPE}/bin-data/dict.tgt.txt \
+			--srcdict $DATASET/ibt_step_$((STEP-1))_${TRANSLATION_TYPE}/bin-data/dict.src.txt \
+			--workers 32 \
+            2>&1 | tee $PREPROCESS_LOG
+fi
+
 
 
 
