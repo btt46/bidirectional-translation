@@ -179,7 +179,7 @@ if [ $STEP -gt 1 ]; then
 fi
 
 if [ $STEP -gt 0 ]; then
-
+    echo "=> previous data: ${PREVIOUS_DATA}"
     touch ${PROCESSED_DATA}/train.src
     touch ${PROCESSED_DATA}/train.tgt
     python3.6 ${UTILS}/merge-file.py  \
