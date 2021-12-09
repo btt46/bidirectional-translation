@@ -110,6 +110,8 @@ if [ $EVAL -eq 0 ]; then
 		read -p "Which checkpoint do you choose: " CHECKPOINT
 		MODEL=$EXPDIR/models/${MODEL_NAME}/checkpoint${CHECKPOINT}.pt
 
+		echo "${MODEL}" >> $MODEL_RESULT/result
+
 		CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 python3 $EXPDIR/fairseq/fairseq_cli/interactive.py $BIN_DATA \
 					--input $BPE_DATA/test.src \
 					--path $MODEL \
@@ -143,6 +145,8 @@ fi
 if [ $EVAL -eq 2 ]; then
 		read -p "Which checkpoint do you choose: " CHECKPOINT
 		MODEL=$EXPDIR/models/${MODEL_NAME}/checkpoint${CHECKPOINT}.pt
+
+		echo "${MODEL}" >> $MODEL_RESULT/result
 
 		CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 python3 $EXPDIR/fairseq/fairseq_cli/interactive.py $BIN_DATA \
 					--input $BPE_DATA/valid.src \
