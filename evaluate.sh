@@ -110,7 +110,7 @@ if [ $EVAL -eq 0 ]; then
 		read -p "Which checkpoint do you choose: " CHECKPOINT
 		MODEL=$EXPDIR/models/${MODEL_NAME}/checkpoint${CHECKPOINT}.pt
 
-		echo "${MODEL}" >> $MODEL_RESULT/result
+		echo "${MODEL}" >> $MODEL_RESULT/result.test
 
 		CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 python3 $EXPDIR/fairseq/fairseq_cli/interactive.py $BIN_DATA \
 					--input $BPE_DATA/test.src \
@@ -133,11 +133,11 @@ if [ $EVAL -eq 0 ]; then
 		# English to Vietnamese
 		echo "TEST" >> $MODEL_RESULT/result
 		echo "En > Vi" >> $MODEL_RESULT/result
-		env LC_ALL=en_US.UTF-8 perl $BLEU $REF_VI < $HYP_VI >> $MODEL_RESULT/result
+		env LC_ALL=en_US.UTF-8 perl $BLEU $REF_VI < $HYP_VI >> $MODEL_RESULT/result.test
 
 		# Vietnamese to English
 		echo "Vi > En"  >> $MODEL_RESULT/result
-		env LC_ALL=en_US.UTF-8 perl $BLEU $REF_EN < $HYP_EN >> $MODEL_RESULT/result	
+		env LC_ALL=en_US.UTF-8 perl $BLEU $REF_EN < $HYP_EN >> $MODEL_RESULT/result.test	
 
 fi
 
@@ -146,7 +146,7 @@ if [ $EVAL -eq 2 ]; then
 		read -p "Which checkpoint do you choose: " CHECKPOINT
 		MODEL=$EXPDIR/models/${MODEL_NAME}/checkpoint${CHECKPOINT}.pt
 
-		echo "${MODEL}" >> $MODEL_RESULT/result
+		echo "${MODEL}" >> $MODEL_RESULT/result.valid
 
 		CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 python3 $EXPDIR/fairseq/fairseq_cli/interactive.py $BIN_DATA \
 					--input $BPE_DATA/valid.src \
@@ -170,10 +170,10 @@ if [ $EVAL -eq 2 ]; then
 		# English to Vietnamese
 		echo "VALID" >> $MODEL_RESULT/result
 		echo "En > Vi" >> $MODEL_RESULT/result
-		env LC_ALL=en_US.UTF-8 perl $BLEU $VALID_REF_VI < $VALID_HYP_VI >> $MODEL_RESULT/result
+		env LC_ALL=en_US.UTF-8 perl $BLEU $VALID_REF_VI < $VALID_HYP_VI >> $MODEL_RESULT/result.valid
 
 		# Vietnamese to English
 		echo "Vi > En" >> $MODEL_RESULT/result
-		env LC_ALL=en_US.UTF-8 perl $BLEU $VALID_REF_EN < $VALID_HYP_EN >> $MODEL_RESULT/result
+		env LC_ALL=en_US.UTF-8 perl $BLEU $VALID_REF_EN < $VALID_HYP_EN >> $MODEL_RESULT/result.valid
 
 fi
