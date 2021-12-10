@@ -123,21 +123,21 @@ if [ $EVAL -eq 0 ]; then
 		cat $MODEL_RESULT/test.translation | awk 'NR % 2 == 0'| sed -r 's/(@@ )|(@@ ?$)//g' > $MODEL_RESULT/test.translation.en
 
 		# detruecase
-		$DETRUECASER < $MODEL_RESULT/test.translation.vi > $MODEL_RESULT/detruecase.vi
-		$DETRUECASER < $MODEL_RESULT/test.translation.en > $MODEL_RESULT/detruecase.en
+		$DETRUECASER < $MODEL_RESULT/test.translation.vi > $MODEL_RESULT/detruecase.test.vi
+		$DETRUECASER < $MODEL_RESULT/test.translation.en > $MODEL_RESULT/detruecase.test.en
 
 		# detokenize
-		python3 $DETOK $MODEL_RESULT/detruecase.vi $HYP_VI
-		python3 $DETOK $MODEL_RESULT/detruecase.en $HYP_EN
+		python3 $DETOK $MODEL_RESULT/detruecase.test.vi test.$HYP_VI
+		python3 $DETOK $MODEL_RESULT/detruecase.test.en test.$HYP_EN
 
 		# English to Vietnamese
 		echo "TEST" >> $MODEL_RESULT/result.test
 		echo "En > Vi" >> $MODEL_RESULT/result.test
-		env LC_ALL=en_US.UTF-8 perl $BLEU $REF_VI < $HYP_VI >> $MODEL_RESULT/result.test
+		env LC_ALL=en_US.UTF-8 perl $BLEU $REF_VI < test.$HYP_VI >> $MODEL_RESULT/result.test
 
 		# Vietnamese to English
 		echo "Vi > En"  >> $MODEL_RESULT/result.test
-		env LC_ALL=en_US.UTF-8 perl $BLEU $REF_EN < $HYP_EN >> $MODEL_RESULT/result.test	
+		env LC_ALL=en_US.UTF-8 perl $BLEU $REF_EN < test.$HYP_EN >> $MODEL_RESULT/result.test	
 
 fi
 
