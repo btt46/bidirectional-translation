@@ -168,12 +168,12 @@ if [ $EVAL -eq 2 ]; then
 		python3 $DETOK $MODEL_RESULT/valid_detruecase.en $VALID_HYP_EN
 
 		# English to Vietnamese
-		echo "VALID" >> $MODEL_RESULT/result
-		echo "En > Vi" >> $MODEL_RESULT/result
+		echo "VALID" >> $MODEL_RESULT/result.valid
+		echo "En > Vi" >> $MODEL_RESULT/result.valid
 		env LC_ALL=en_US.UTF-8 perl $BLEU $VALID_REF_VI < $VALID_HYP_VI >> $MODEL_RESULT/result.valid
 
 		# Vietnamese to English
-		echo "Vi > En" >> $MODEL_RESULT/result
+		echo "Vi > En" >> $MODEL_RESULT/result.valid
 		env LC_ALL=en_US.UTF-8 perl $BLEU $VALID_REF_EN < $VALID_HYP_EN >> $MODEL_RESULT/result.valid
 
 fi
