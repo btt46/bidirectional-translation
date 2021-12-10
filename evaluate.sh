@@ -133,11 +133,11 @@ if [ $EVAL -eq 0 ]; then
 		# English to Vietnamese
 		echo "TEST" >> $MODEL_RESULT/result.test
 		echo "En > Vi" >> $MODEL_RESULT/result.test
-		env LC_ALL=en_US.UTF-8 perl $BLEU $REF_VI < test.$HYP_VI >> $MODEL_RESULT/result.test
+		env LC_ALL=en_US.UTF-8 perl $BLEU $REF_VI < $HYP_VI >> $MODEL_RESULT/result.test
 
 		# Vietnamese to English
 		echo "Vi > En"  >> $MODEL_RESULT/result.test
-		env LC_ALL=en_US.UTF-8 perl $BLEU $REF_EN < test.$HYP_EN >> $MODEL_RESULT/result.test	
+		env LC_ALL=en_US.UTF-8 perl $BLEU $REF_EN < $HYP_EN >> $MODEL_RESULT/result.test	
 
 fi
 
