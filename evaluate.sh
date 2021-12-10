@@ -123,12 +123,12 @@ if [ $EVAL -eq 0 ]; then
 		cat $MODEL_RESULT/test.translation | awk 'NR % 2 == 0'| sed -r 's/(@@ )|(@@ ?$)//g' > $MODEL_RESULT/test.translation.en
 
 		# detruecase
-		$DETRUECASER < $MODEL_RESULT/test.translation.vi > $MODEL_RESULT/detruecase.test.vi
-		$DETRUECASER < $MODEL_RESULT/test.translation.en > $MODEL_RESULT/detruecase.test.en
+		$DETRUECASER < $MODEL_RESULT/test.translation.vi > $MODEL_RESULT/detruecase.vi
+		$DETRUECASER < $MODEL_RESULT/test.translation.en > $MODEL_RESULT/detruecase.en
 
 		# detokenize
-		python3 $DETOK $MODEL_RESULT/detruecase.test.vi test.$HYP_VI
-		python3 $DETOK $MODEL_RESULT/detruecase.test.en test.$HYP_EN
+		python3 $DETOK $MODEL_RESULT/detruecase.vi $HYP_VI
+		python3 $DETOK $MODEL_RESULT/detruecase.en $HYP_EN
 
 		# English to Vietnamese
 		echo "TEST" >> $MODEL_RESULT/result.test
