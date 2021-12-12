@@ -136,10 +136,10 @@ if __name__ == "__main__":
   parser.add_argument('--num_samples', help='Number of samples to use', type=int, default=10000)
   args = parser.parse_args()
   
-  with open(args.gold, 'r','utf-8') as f:
+  with open(args.gold, 'r',encoding='utf-8') as f:
     gold = f.readlines() 
-  with open(args.sys1, 'r','utf-8') as f:
+  with open(args.sys1, 'r',encoding='utf-8') as f:
     sys1 = f.readlines() 
-  with open(args.sys2, 'r','utf-8') as f:
+  with open(args.sys2, 'r',encoding='utf-8') as f:
     sys2 = f.readlines() 
   eval_with_paired_bootstrap(gold, sys1, sys2, eval_type=args.eval_type, num_samples=args.num_samples)
