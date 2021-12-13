@@ -16,6 +16,8 @@ DATASET=$EXPDIR/dataset
 RESULTS=$EXPDIR/results
 
 UNI_DATASET=$EXPDIR/dataset/${SRC}2${TGT}
+
+$BIN_DATA=$UNI_DATASET/bin-data
 MODEL_RESULT=$RESULTS/${SRC}2${TGT}
 
 if [ ! -d $MODEL_RESULT ]; then
