@@ -42,7 +42,7 @@ if [ $EVAL -eq 1 ]; then
         echo "${MODEL}" >> $MODEL_RESULT/result
 
         CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 python3 $EXPDIR/fairseq/fairseq_cli/interactive.py $BIN_DATA \
-                    --input $BPE_DATA/test.${SRC} \
+                    --input $BPE_DATA/valid.${SRC} \
                     --path $MODEL \
                     --beam 5 | tee $MODEL_RESULT/interactive.valid.translation
 
@@ -96,7 +96,7 @@ if [ $EVAL -eq 2 ]; then
 	echo "${MODEL}" >> $MODEL_RESULT/result.valid
 
     CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 python3 $EXPDIR/fairseq/fairseq_cli/interactive.py $BIN_DATA \
-	            --input $BPE_DATA/test.${SRC} \
+	            --input $BPE_DATA/valid.${SRC} \
 	            --path $MODEL \
 	            --beam 5 | tee $MODEL_RESULT/interactive.valid.translation
 
