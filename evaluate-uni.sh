@@ -31,6 +31,9 @@ VALID_REF=$UNI_DATASET/data/valid.${TGT}
 HYP=$MODEL_RESULT/hyp.${TGT}
 VALID_HYP=$MODEL_RESULT/dev_hyp.${TGT}
 
+DETOK=$EXPDIR/utils/detokenize.py
+BLEU=$PWD/multi-bleu.pl
+
 if [ $EVAL -eq 1 ]; then
 
 	for i in 21 22 23 24 25 26 27 28 29 30
