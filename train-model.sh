@@ -22,7 +22,7 @@ if [ ${STEP} -eq -1 ]; then
 	read -p "Source language (en or vi): " SRC
 	read -p "Target language (en or vi): " TGT
 	UNI_DATASET=$EXPDIR/dataset/${SRC}2${TGT}/bin-data
-	UDA_VISIBLE_DEVICES=$GPUS fairseq-train $IBT_DATASET -s ${SRC} -t ${TGT} \
+	UDA_VISIBLE_DEVICES=$GPUS fairseq-train $UNI_DATASET -s ${SRC} -t ${TGT} \
 		            --log-interval 100 \
 					--log-format json \
 					--max-epoch ${EPOCHS} \
