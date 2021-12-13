@@ -47,7 +47,7 @@ if [ $EVAL -eq 1 ]; then
                     --beam 5 | tee $MODEL_RESULT/interactive.valid.translation
 
         grep ^H $MODEL_RESULT/interactive.valid.translation | cut -f3 > $MODEL_RESULT/valid.translation
-        cat $MODEL_RESULT/valid.translation| sed -r 's/(@@ )|(@@ ?$)//g' > $MODEL_RESULT/valid.translation.${TGT}
+        cat $MODEL_RESULT/valid.translation | sed -r 's/(@@ )|(@@ ?$)//g' > $MODEL_RESULT/valid.translation.${TGT}
 
         # detruecase
         # detruecase
@@ -74,7 +74,7 @@ if [ $EVAL -eq 0 ]; then
 	            --beam 5 | tee $MODEL_RESULT/interactive.test.translation
 
 	grep ^H $MODEL_RESULT/interactive.test.translation | cut -f3 > $MODEL_RESULT/test.translation
-	cat $MODEL_RESULT/test.translation| sed -r 's/(@@ )|(@@ ?$)//g' > $MODEL_RESULT/test.translation.${TGT}
+	cat $MODEL_RESULT/test.translation | sed -r 's/(@@ )|(@@ ?$)//g' > $MODEL_RESULT/test.translation.${TGT}
 
 	# detruecase
 	# detruecase
@@ -101,7 +101,7 @@ if [ $EVAL -eq 2 ]; then
 	            --beam 5 | tee $MODEL_RESULT/interactive.valid.translation
 
 	grep ^H $MODEL_RESULT/interactive.valid.translation | cut -f3 > $MODEL_RESULT/valid.translation
-	cat $MODEL_RESULT/valid.translation| sed -r 's/(@@ )|(@@ ?$)//g' > $MODEL_RESULT/valid.translation.${TGT}
+	cat $MODEL_RESULT/valid.translation | sed -r 's/(@@ )|(@@ ?$)//g' > $MODEL_RESULT/valid.translation.${TGT}
 
 	# detruecase
 	# detruecase
