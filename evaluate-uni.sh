@@ -38,7 +38,7 @@ if [ $EVAL -eq 1 ]; then
         CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 python3 $EXPDIR/fairseq/fairseq_cli/interactive.py $BIN_DATA \
                     --input $BPE_DATA/test.${SRC} \
                     --path $MODEL \
-                    --beam 5 | tee ${TEST}/interactive.valid.translation
+                    --beam 5 | tee $MODEL_RESULT/interactive.valid.translation
 
         grep ^H $MODEL_RESULT/interactive.valid.translation | cut -f3 > $MODEL_RESULT/valid.translation
         cat $MODEL_RESULT/valid.translation| sed -r 's/(@@ )|(@@ ?$)//g' > $MODEL_RESULT/valid.translation.${TGT}
@@ -65,7 +65,7 @@ if [ $EVAL -eq 0 ]; then
     CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 python3 $EXPDIR/fairseq/fairseq_cli/interactive.py $BIN_DATA \
 	            --input $BPE_DATA/test.${SRC} \
 	            --path $MODEL \
-	            --beam 5 | tee ${TEST}/interactive.test.translation
+	            --beam 5 | tee $MODEL_RESULT/interactive.test.translation
 
 	grep ^H $MODEL_RESULT/interactive.test.translation | cut -f3 > $MODEL_RESULT/test.translation
 	cat $MODEL_RESULT/test.translation| sed -r 's/(@@ )|(@@ ?$)//g' > $MODEL_RESULT/test.translation.${TGT}
@@ -92,7 +92,7 @@ if [ $EVAL -eq 2 ]; then
     CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 python3 $EXPDIR/fairseq/fairseq_cli/interactive.py $BIN_DATA \
 	            --input $BPE_DATA/test.${SRC} \
 	            --path $MODEL \
-	            --beam 5 | tee ${TEST}/interactive.valid.translation
+	            --beam 5 | tee $MODEL_RESULT/interactive.valid.translation
 
 	grep ^H $MODEL_RESULT/interactive.valid.translation | cut -f3 > $MODEL_RESULT/valid.translation
 	cat $MODEL_RESULT/valid.translation| sed -r 's/(@@ )|(@@ ?$)//g' > $MODEL_RESULT/valid.translation.${TGT}
