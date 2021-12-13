@@ -13,6 +13,8 @@ DETRUECASER=$MOSES/recaser/detruecase.perl
 
 DATASET=$EXPDIR/dataset
 
+RESULTS=$EXPDIR/results
+
 UNI_DATASET=$EXPDIR/dataset/${SRC}2${TGT}
 MODEL_RESULT=$RESULTS/${SRC}2${TGT}
 
