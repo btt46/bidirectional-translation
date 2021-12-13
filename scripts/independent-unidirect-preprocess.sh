@@ -22,8 +22,7 @@ RAW_DATA=$DATASET/iwslt15
 
 DATA_NAME="train valid test"
 
-# BPE models
-BPE_MODEL=$DATASET/bpe-model
+
 
 read -p "Source language (en or vi): " SRC
 read -p "Target language (en or vi): " TGT
@@ -40,6 +39,8 @@ TOKENIZED_DATA=$UNI_DATASET/tok
 TRUECASED_DATA=$UNI_DATASET/truecased
 BPE_DATA=$UNI_DATASET/bpe-data
 BIN_DATA=$UNI_DATASET/bin-data
+# BPE models
+BPE_MODEL=$UNI_DATASET/bpe-model
 
 ##### PREPROCESSING
 echo "PREPROCESSING"
@@ -106,6 +107,18 @@ for SET in $DATA_NAME; do
     done
 done
 
+# learn bpe model with training data
+if [ ! -d $BPE_MODEL ]; then  
+
+    mkdir -p $BPE_MODEL
+
+    echo "=> LEARNING BPE MODEL: $BPE_MODEL"
+    subword-nmt learn-bpe -s ${BPESIZE} < ${TRUECASED_DATA}/train.vi > ${BPE_MODEL}/code.${BPESIZE}.bpe.vi
+    subword-nmt learn-bpe -s ${BPESIZE} < ${TRUECASED_DATA}/train.en > ${BPE_MODEL}/code.${BPESIZE}.bpe.en
+
+fi
+
+
 # apply sub-word segmentation
 echo "=> Apply sub-word"
 if [ ! -d $BPE_DATA ]; then
@@ -113,8 +126,8 @@ if [ ! -d $BPE_DATA ]; then
 fi
 
 for SET in $DATA_NAME; do
-    subword-nmt apply-bpe -c $BPE_MODEL/code.${BPESIZE}.bpe < ${PROCESSED_DATA}/${SET}.${SRC} > $BPE_DATA/${SET}.${SRC}
-    subword-nmt apply-bpe -c $BPE_MODEL/code.${BPESIZE}.bpe < ${PROCESSED_DATA}/${SET}.${TGT} > $BPE_DATA/${SET}.${TGT}
+    subword-nmt apply-bpe -c $BPE_MODEL/code.${BPESIZE}.bpe.${SRC} < ${PROCESSED_DATA}/${SET}.${SRC} > $BPE_DATA/${SET}.${SRC}
+    subword-nmt apply-bpe -c $BPE_MODEL/code.${BPESIZE}.bpe.${TGT} < ${PROCESSED_DATA}/${SET}.${TGT} > $BPE_DATA/${SET}.${TGT}
 done
 
 echo "=> Done"
