@@ -19,15 +19,18 @@ RESULTS=$EXPDIR/results
 
 if [ $TYPE -eq 1 ]; then
     UNI_DATASET=$EXPDIR/dataset/${SRC}2${TGT}
+    MODEL_RESULT=$RESULTS/${SRC}2${TGT}
+
 fi
 
 if [ $TYPE -eq 2 ]; then
     UNI_DATASET=$EXPDIR/dataset/${SRC}-${TGT}
+    MODEL_RESULT=$RESULTS/${SRC}-${TGT}
+
 fi
 
 BIN_DATA=$UNI_DATASET/bin-data
 BPE_DATA=$UNI_DATASET/bpe-data
-MODEL_RESULT=$RESULTS/${SRC}2${TGT}
 
 if [ ! -d $MODEL_RESULT ]; then
     mkdir -p $MODEL_RESULT
