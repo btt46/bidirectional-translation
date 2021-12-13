@@ -16,6 +16,10 @@ DATASET=$EXPDIR/dataset
 UNI_DATASET=$EXPDIR/dataset/${SRC}2${TGT}
 MODEL_RESULT=$RESULTS/${SRC}2${TGT}
 
+if [ ! -d $MODEL_RESULT ]; then
+    mkdir -p $MODEL_RESULT
+fi
+
 REF=$UNI_DATASET/data/test.${TGT}
 VALID_REF=$UNI_DATASET/data/valid.${TGT}
 
