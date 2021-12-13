@@ -30,6 +30,9 @@ read -p "Target language (en or vi): " TGT
 
 UNI_DATASET=$EXPDIR/dataset/${SRC}2${TGT}
 
+# UTILS
+UTILS=$EXPDIR/utils
+
 DATA=$UNI_DATASET/data
 PROCESSED_DATA=$UNI_DATASET/processed
 NORMALIZED_DATA=$UNI_DATASET/normalized
