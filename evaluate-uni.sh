@@ -38,7 +38,7 @@ if [ $EVAL -eq 1 ]; then
 
 	for i in 21 22 23 24 25 26 27 28 29 30
 	do
-        MODEL=$EXPDIR/models/${MODEL_NAME}/checkpoint${CHECKPOINT}.pt
+        MODEL=$EXPDIR/models/${MODEL_NAME}/checkpoint${i}.pt
         echo "${MODEL}" >> $MODEL_RESULT/result
 
         CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 python3 $EXPDIR/fairseq/fairseq_cli/interactive.py $BIN_DATA \
