@@ -31,6 +31,8 @@ read -p "Target language (en or vi): " TGT
 read -p "Which steps do you choose to finetune: " STEP
 
 
+
+
 if [ $STEP -gt 0 ]; then
     read -p "beam or random: " TRANSLATION_TYPE
     FINETUNE_BIN_DATA=$EXPDIR/dataset/ibt_step_${STEP}_${TRANSLATION_TYPE}/bin-data
@@ -39,6 +41,18 @@ fi
 if [ $STEP -eq 0 ]; then
     FINETUNE_BIN_DATA=$EXPDIR/dataset/ibt_step_0/bin-data
 fi
+
+TAG=""
+
+if [ "${SRC}" = "en" ] ; then
+	TAG="<e2v>"
+fi
+
+if [ "${SRC}" = "vi" ] ; then
+	TAG="<v2e>"
+fi 
+
+echo "${TAG}"
 
 UNI_DATASET=$EXPDIR/dataset/finetune-${SRC}2${TGT}
 
@@ -127,6 +141,18 @@ fi
 for SET in $DATA_NAME; do
     subword-nmt apply-bpe -c $BPE_MODEL/code.${BPESIZE}.bpe < ${PROCESSED_DATA}/${SET}.${SRC} > $BPE_DATA/${SET}.${SRC}
     subword-nmt apply-bpe -c $BPE_MODEL/code.${BPESIZE}.bpe < ${PROCESSED_DATA}/${SET}.${TGT} > $BPE_DATA/${SET}.${TGT}
+done
+
+
+
+echo "=> Add tags"
+
+
+
+
+
+for SET in $DATA_NAME; do
+    python3.6 $UTILS/addTag.py -f $BPE_DATA/${SET}.${SRC} -p1 1 -t1 $TAG -p2 0 -t2 "" 
 done
 
 echo "=> Done"
