@@ -149,3 +149,43 @@ if [ ${STEP} -gt 0 ]; then
 					--save-dir $MODELS/$MODEL_NAME \
 					2>&1 | tee $LOG/${MODEL_NAME}
 fi
+
+if [ ${STEP} -eq -3 ]; then
+	read -p "Pretrained model name: " PRETRAINED_MODEL_NAME
+	read -p "Which checkpoint do you choose: " PRETRAIND_MODEL_CHECKPOINT
+
+	read -p "Source language (en or vi): " SRC
+	read -p "Target language (en or vi): " TGT
+	echo "=>> Training a finetune model..."
+   
+
+	PRETRAINED_MODEL=$MODELS/${PRETRAINED_MODEL_NAME}/checkpoint${PRETRAIND_MODEL_CHECKPOINT}.pt
+	
+	IBT_DATASET=$EXPDIR/dataset/finetune-${SRC}2${TGT}/bin-data
+
+	CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $IBT_DATASET -s ${SRC} -t ${TGT} \
+		            --log-interval 100 \
+					--log-format json \
+					--max-epoch ${EPOCHS} \
+		    		--optimizer adam --lr 0.0001 \
+					--clip-norm 0.0 \
+					--max-tokens 4000 \
+					--no-progress-bar \
+					--log-interval 100 \
+					--min-lr '1e-09' \
+					--weight-decay 0.0001 \
+					--criterion label_smoothed_cross_entropy \
+					--label-smoothing 0.1 \
+					--lr-scheduler inverse_sqrt \
+					--warmup-updates 4000 \
+					--warmup-init-lr '1e-08' \
+					--adam-betas '(0.9, 0.98)' \
+					--arch transformer_iwslt_de_en \
+					--dropout 0.1 \
+					--attention-dropout 0.1 \
+					--share-decoder-input-output-embed \
+					--share-all-embeddings \
+					--finetune-from-model $PRETRAINED_MODEL\
+					--save-dir $MODELS/$MODEL_NAME \
+					2>&1 | tee $LOG/${MODEL_NAME}
+fi
