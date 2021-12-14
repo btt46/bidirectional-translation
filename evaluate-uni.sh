@@ -30,7 +30,7 @@ if [ $TYPE -eq 2 ]; then
 fi
 
 if [ $TYPE -eq 3 ]; then
-    UNI_DATASET=$EXPDIR/dataset/$finetune-${SRC}2${TGT}
+    UNI_DATASET=$EXPDIR/dataset/finetune-${SRC}2${TGT}
     MODEL_RESULT=$RESULTS/finetune-${SRC}2${TGT}
 fi
 
