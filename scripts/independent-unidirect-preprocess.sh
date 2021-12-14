@@ -132,7 +132,7 @@ done
 
 echo "=> Done"
 
-PREPROCESS_LOG=$LOGS/preprocess/log.preprocess.${SRC}2${TGT}
+PREPROCESS_LOG=$LOGS/preprocess/log.preprocess.${SRC}-${TGT}
 fairseq-preprocess -s ${SRC} -t ${TGT} \
         --destdir $BIN_DATA \
         --trainpref $BPE_DATA/train \
