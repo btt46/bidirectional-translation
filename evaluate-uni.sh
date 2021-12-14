@@ -8,7 +8,7 @@ read -p "EVAL (0 or 1 or 2)?: " EVAL
 read -p "Source language (en or vi): " SRC
 read -p "Target language (en or vi): " TGT
 
-read -p "type 1 (x2y) or type 2 (x-y): " TYPE
+read -p "type 1 (x2y) or type 2 (x-y) or fine-tune (3): " TYPE
 
 MOSES=$EXPDIR/mosesdecoder/scripts
 DETRUECASER=$MOSES/recaser/detruecase.perl
@@ -27,6 +27,11 @@ if [ $TYPE -eq 2 ]; then
     UNI_DATASET=$EXPDIR/dataset/${SRC}-${TGT}
     MODEL_RESULT=$RESULTS/${SRC}-${TGT}
 
+fi
+
+if [ $TYPE -eq 3 ]; then
+    UNI_DATASET=$EXPDIR/dataset/$finetune-${SRC}2${TGT}
+    MODEL_RESULT=$RESULTS/finetune-${SRC}2${TGT}
 fi
 
 BIN_DATA=$UNI_DATASET/bin-data
