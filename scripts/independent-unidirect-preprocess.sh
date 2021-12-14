@@ -112,11 +112,14 @@ if [ ! -d $BPE_MODEL ]; then
 
     mkdir -p $BPE_MODEL
 
-    echo "=> LEARNING BPE MODEL: $BPE_MODEL"
-    subword-nmt learn-bpe -s ${BPESIZE} < ${TRUECASED_DATA}/train.vi > ${BPE_MODEL}/code.${BPESIZE}.bpe.vi
-    subword-nmt learn-bpe -s ${BPESIZE} < ${TRUECASED_DATA}/train.en > ${BPE_MODEL}/code.${BPESIZE}.bpe.en
-
 fi
+
+   
+
+echo "=> LEARNING BPE MODEL: $BPE_MODEL"
+subword-nmt learn-joint-bpe-and-vocab --input ${PROCESSED_DATA}/train.${SRC} ${PROCESSED_DATA}/train.${TGT} \
+                -s $BPESIZE -o $BPE_MODEL/code.${BPESIZE}.bpe \
+                --write-vocabulary $BPE_MODEL/train.${SRC}.vocab $BPE_MODEL/train.${TGT}.vocab 
 
 
 # apply sub-word segmentation
@@ -126,8 +129,8 @@ if [ ! -d $BPE_DATA ]; then
 fi
 
 for SET in $DATA_NAME; do
-    subword-nmt apply-bpe -c $BPE_MODEL/code.${BPESIZE}.bpe.${SRC} < ${PROCESSED_DATA}/${SET}.${SRC} > $BPE_DATA/${SET}.${SRC}
-    subword-nmt apply-bpe -c $BPE_MODEL/code.${BPESIZE}.bpe.${TGT} < ${PROCESSED_DATA}/${SET}.${TGT} > $BPE_DATA/${SET}.${TGT}
+    subword-nmt apply-bpe -c $BPE_MODEL/code.${BPESIZE}.bpe < ${PROCESSED_DATA}/${SET}.${SRC} > $BPE_DATA/${SET}.${SRC}
+    subword-nmt apply-bpe -c $BPE_MODEL/code.${BPESIZE}.bpe < ${PROCESSED_DATA}/${SET}.${TGT} > $BPE_DATA/${SET}.${TGT}
 done
 
 echo "=> Done"
