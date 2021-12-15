@@ -73,6 +73,7 @@ rm -rf $TRUECASED_DATA
 rm -rf $BPE_DATA
 rm -rf $BIN_DATA
 
+
 mkdir -p $DATA
 mkdir -p $PROCESSED_DATA
 mkdir -p $NORMALIZED_DATA
@@ -126,6 +127,13 @@ for SET in $DATA_NAME; do
         cp ${TRUECASED_DATA}/${SET}.${lang} ${PROCESSED_DATA}/${SET}.${lang}
     done
 done
+
+# learn bpe model with training data
+if [ ! -d $BPE_MODEL ]; then  
+
+    mkdir -p $BPE_MODEL
+
+fi
 
 echo "=> LEARNING BPE MODEL: $BPE_MODEL"
 subword-nmt learn-joint-bpe-and-vocab --input ${PROCESSED_DATA}/train.${SRC} ${PROCESSED_DATA}/train.${TGT} \
