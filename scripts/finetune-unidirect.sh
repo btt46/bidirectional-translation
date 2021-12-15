@@ -22,16 +22,10 @@ RAW_DATA=$DATASET/iwslt15
 
 DATA_NAME="train valid test"
 
-# BPE models
-BPE_MODEL=$DATASET/bpe-model
-
 read -p "Source language (en or vi): " SRC
 read -p "Target language (en or vi): " TGT
 
 read -p "Which steps do you choose to finetune: " STEP
-
-
-
 
 if [ $STEP -gt 0 ]; then
     read -p "beam or random: " TRANSLATION_TYPE
@@ -66,6 +60,7 @@ TOKENIZED_DATA=$UNI_DATASET/tok
 TRUECASED_DATA=$UNI_DATASET/truecased
 BPE_DATA=$UNI_DATASET/bpe-data
 BIN_DATA=$UNI_DATASET/bin-data
+BPE_MODEL=$UNI_DATASET/bpe-model
 
 ##### PREPROCESSING
 echo "PREPROCESSING"
@@ -132,6 +127,12 @@ for SET in $DATA_NAME; do
     done
 done
 
+echo "=> LEARNING BPE MODEL: $BPE_MODEL"
+subword-nmt learn-joint-bpe-and-vocab --input ${PROCESSED_DATA}/train.${SRC} ${PROCESSED_DATA}/train.${TGT} \
+                -s $BPESIZE -o $BPE_MODEL/code.${BPESIZE}.bpe \
+                --write-vocabulary $BPE_MODEL/train.${SRC}.vocab $BPE_MODEL/train.${TGT}.vocab 
+
+
 # apply sub-word segmentation
 echo "=> Apply sub-word"
 if [ ! -d $BPE_DATA ]; then
@@ -144,12 +145,7 @@ for SET in $DATA_NAME; do
 done
 
 
-
 echo "=> Add tags"
-
-
-
-
 
 for SET in $DATA_NAME; do
     python3.6 $UTILS/addTag.py -f $BPE_DATA/${SET}.${SRC} -p1 1 -t1 $TAG -p2 0 -t2 "" 
@@ -157,7 +153,7 @@ done
 
 echo "=> Done"
 
-PREPROCESS_LOG=$LOGS/preprocess/log.preprocess.${SRC}2${TGT}
+PREPROCESS_LOG=$LOGS/preprocess/log.preprocess.finetune-${SRC}2${TGT}
 fairseq-preprocess -s ${SRC} -t ${TGT} \
         --destdir $BIN_DATA \
         --trainpref $BPE_DATA/train \
