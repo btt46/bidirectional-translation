@@ -140,8 +140,8 @@ if [ ! -d $BPE_DATA ]; then
 fi
 
 for SET in $DATA_NAME; do
-    subword-nmt apply-bpe -c $BPE_MODEL/code.${BPESIZE}.bpe < ${PROCESSED_DATA}/${SET}.${SRC} > $BPE_DATA/${SET}.${SRC}
-    subword-nmt apply-bpe -c $BPE_MODEL/code.${BPESIZE}.bpe < ${PROCESSED_DATA}/${SET}.${TGT} > $BPE_DATA/${SET}.${TGT}
+    subword-nmt apply-bpe -c $BPE_MODEL/code.${BPESIZE}.bpe.${SRC} < ${PROCESSED_DATA}/${SET}.${SRC} > $BPE_DATA/${SET}.${SRC}
+    subword-nmt apply-bpe -c $BPE_MODEL/code.${BPESIZE}.bpe.${TGT} < ${PROCESSED_DATA}/${SET}.${TGT} > $BPE_DATA/${SET}.${TGT}
 done
 
 
