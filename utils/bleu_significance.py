@@ -153,16 +153,16 @@ def paired_bootstrap_resample_from_files(
     num_samples: int = 1000,
     sample_size: Optional[int] = None,
 ) -> PairedBootstrapOutput:
-    with open(reference_file, "r") as f:
+    with open(reference_file, "r",encoding='utf-8') as f:
         references: List[str] = [line for line in f]
 
-    with open(baseline_file, "r") as f:
+    with open(baseline_file, "r",encoding='utf-8') as f:
         baseline_translations: List[str] = [line for line in f]
     baseline_stats: pd.DataFrame = get_sufficient_stats(
         translations=baseline_translations, references=references
     )
 
-    with open(new_file, "r") as f:
+    with open(new_file, "r",encoding='utf-8') as f:
         new_translations: List[str] = [line for line in f]
     new_stats: pd.DataFrame = get_sufficient_stats(
         translations=new_translations, references=references
