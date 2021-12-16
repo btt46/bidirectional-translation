@@ -19,20 +19,22 @@ RESULTS=$EXPDIR/results
 
 if [ $TYPE -eq 1 ]; then
     UNI_DATASET=$EXPDIR/dataset/${SRC}2${TGT}
-    MODEL_RESULT=$RESULTS/${SRC}2${TGT}
+    # MODEL_RESULT=$RESULTS/${SRC}2${TGT}
 
 fi
 
 if [ $TYPE -eq 2 ]; then
     UNI_DATASET=$EXPDIR/dataset/${SRC}-${TGT}
-    MODEL_RESULT=$RESULTS/${SRC}-${TGT}
+    # MODEL_RESULT=$RESULTS/${SRC}-${TGT}
 
 fi
 
 if [ $TYPE -eq 3 ]; then
     UNI_DATASET=$EXPDIR/dataset/finetune-${SRC}2${TGT}
-    MODEL_RESULT=$RESULTS/finetune-${SRC}2${TGT}
+    # MODEL_RESULT=$RESULTS/finetune-${SRC}2${TGT}
 fi
+
+MODEL_RESULT=$RESULTS/${MODEL_NAME}
 
 BIN_DATA=$UNI_DATASET/bin-data
 BPE_DATA=$UNI_DATASET/bpe-data
