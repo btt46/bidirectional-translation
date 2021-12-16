@@ -137,7 +137,6 @@ echo "=> Done"
 
 PREPROCESS_LOG=$LOGS/preprocess/log.preprocess.${SRC}-${TGT}
 fairseq-preprocess -s ${SRC} -t ${TGT} \
-        --joined-dictionary \
         --destdir $BIN_DATA \
         --trainpref $BPE_DATA/train \
         --validpref $BPE_DATA/valid \
