@@ -114,6 +114,7 @@ if [ $EVAL -eq 0 ]; then
 
 		CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 python3 $EXPDIR/fairseq/fairseq_cli/interactive.py $BIN_DATA \
 					--input $BPE_DATA/test.src \
+					--print-alignment soft\
 					--path $MODEL \
 					--beam 5 | tee $MODEL_RESULT/interactive.test.translation
 
