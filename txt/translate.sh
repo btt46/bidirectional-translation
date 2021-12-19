@@ -6,7 +6,7 @@ read -p "GPUS: " GPUS
 read -p "MODEL NAME: " MODEL_NAME
 read -p "IBT STEP: " STEP
 read -p "EVAL (0 or 1 or 2)?: " EVAL
-
+read -p "Which checkpoint do you choose: " CHECKPOINT
 
 MOSES=$EXPDIR/mosesdecoder/scripts
 DETRUECASER=$MOSES/recaser/detruecase.perl
@@ -53,8 +53,7 @@ if [ $STEP -ge 1 ]; then
 	VALID_REF_VI=$DATASET/ibt_step_${STEP}_${TRANSLATION_TYPE}/data/valid.vi
 fi
 
-MODEL=$EXPDIR/models/${MODEL_NAME}/checkpoint${i}.pt
-echo "${MODEL}" >> $MODEL_RESULT/result
+MODEL=$EXPDIR/models/${MODEL_NAME}/checkpoint${CHECKPOINT}.pt
 
 CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 python3 $EXPDIR/fairseq/fairseq_cli/interactive.py $BIN_DATA \
             --input $EXPDIR/txt/test.txt \
