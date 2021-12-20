@@ -38,13 +38,7 @@ fi
 
 TAG=""
 
-if [ "${SRC}" = "en" ] ; then
-	TAG="<e2v>"
-fi
 
-if [ "${SRC}" = "vi" ] ; then
-	TAG="<v2e>"
-fi 
 
 echo "${TAG}"
 
@@ -60,7 +54,7 @@ TOKENIZED_DATA=$UNI_DATASET/tok
 TRUECASED_DATA=$UNI_DATASET/truecased
 BPE_DATA=$UNI_DATASET/bpe-data
 BIN_DATA=$UNI_DATASET/bin-data
-BPE_MODEL=$UNI_DATASET/bpe-model
+BPE_MODEL=$DATASET/bpe-model
 
 ##### PREPROCESSING
 echo "PREPROCESSING"
@@ -128,17 +122,17 @@ for SET in $DATA_NAME; do
     done
 done
 
-# learn bpe model with training data
-if [ ! -d $BPE_MODEL ]; then  
+# # learn bpe model with training data
+# if [ ! -d $BPE_MODEL ]; then  
 
-    mkdir -p $BPE_MODEL
+#     mkdir -p $BPE_MODEL
 
-fi
+# fi
 
-echo "=> LEARNING BPE MODEL: $BPE_MODEL"
-subword-nmt learn-joint-bpe-and-vocab --input ${PROCESSED_DATA}/train.${SRC} ${PROCESSED_DATA}/train.${TGT} \
-                -s $BPESIZE -o $BPE_MODEL/code.${BPESIZE}.bpe \
-                --write-vocabulary $BPE_MODEL/train.${SRC}.vocab $BPE_MODEL/train.${TGT}.vocab 
+# echo "=> LEARNING BPE MODEL: $BPE_MODEL"
+# subword-nmt learn-joint-bpe-and-vocab --input ${PROCESSED_DATA}/train.${SRC} ${PROCESSED_DATA}/train.${TGT} \
+#                 -s $BPESIZE -o $BPE_MODEL/code.${BPESIZE}.bpe \
+#                 --write-vocabulary $BPE_MODEL/train.${SRC}.vocab $BPE_MODEL/train.${TGT}.vocab 
 
 
 # apply sub-word segmentation
@@ -153,11 +147,11 @@ for SET in $DATA_NAME; do
 done
 
 
-echo "=> Add tags"
+# echo "=> Add tags"
 
-for SET in $DATA_NAME; do
-    python3.6 $UTILS/addTag.py -f $BPE_DATA/${SET}.${SRC} -p1 1 -t1 $TAG -p2 0 -t2 "" 
-done
+# for SET in $DATA_NAME; do
+#     python3.6 $UTILS/addTag.py -f $BPE_DATA/${SET}.${SRC} -p1 1 -t1 $TAG -p2 0 -t2 "" 
+# done
 
 echo "=> Done"
 
