@@ -21,6 +21,14 @@ fi
 if [ ${STEP} -eq -1 ]; then
 	read -p "Source language (en or vi): " SRC
 	read -p "Target language (en or vi): " TGT
+	read -p "beam or random: " TRANSLATION_TYPE
+	read -p "Pretrained model name: " PRETRAINED_MODEL_NAME
+	read -p "Which checkpoint do you choose: " PRETRAIND_MODEL_CHECKPOINT
+
+	echo "=>> Training a bidirectional model..."
+    echo "=> IBT step: ${STEP}"
+
+	PRETRAINED_MODEL=$MODELS/${PRETRAINED_MODEL_NAME}/checkpoint${PRETRAIND_MODEL_CHECKPOINT}.pt
 	UNI_DATASET=$EXPDIR/dataset/${SRC}2${TGT}/bin-data
 	CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $UNI_DATASET -s ${SRC} -t ${TGT} \
 		            --log-interval 100 \
@@ -43,6 +51,7 @@ if [ ${STEP} -eq -1 ]; then
 					--dropout 0.1 \
 					--attention-dropout 0.1 \
 					--share-decoder-input-output-embed \
+					--finetune-from-model $PRETRAINED_MODEL\
 					--save-dir $MODELS/$MODEL_NAME \
 					2>&1 | tee $LOG/${MODEL_NAME}
 
