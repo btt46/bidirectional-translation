@@ -125,5 +125,7 @@ fairseq-preprocess -s ${SRC} -t ${TGT} \
         --trainpref $BPE_DATA/train \
         --validpref $BPE_DATA/valid \
         --testpref $BPE_DATA/test \
+        --tgtdict $DATASET/ibt_step_0/bin-data/dict.tgt.txt \
+		--srcdict $DATASET/ibt_step_0/bin-data/dict.src.txt \
         --workers 32 \
         2>&1 | tee $PREPROCESS_LOG
